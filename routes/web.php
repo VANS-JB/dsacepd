@@ -60,7 +60,7 @@ Route::get('/', function () {
 
 
 Route::middleware('auth')->group(function () {
-    Route::resource('demandes', DemandeController::class);
+    Route::resource('admin/demandes', DemandeController::class);
 });
 
 
@@ -99,8 +99,10 @@ Route::middleware('auth')->group(function () {
 
 Route::middleware('auth')->group(function () {
     Route::get('/attestations', [AttestationController::class, 'index'])->name('attestations.index');
-    Route::get('/attestation/{id}', [AttestationController::class, 'show'])->name('attestation.show');
+    Route::get('/attestations/{id}/print', [AttestationController::class, 'print'])->name('attestations.print');
 });
+
+
 
 
 

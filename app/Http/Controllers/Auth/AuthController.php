@@ -36,7 +36,7 @@ class AuthController extends Controller
             if (in_array($user->role->libelle, ['admin', 'agent'])) {
                 return redirect()->route('dashboard'); // même dashboard
             } elseif ($user->role->libelle === 'demandeur') {
-                return redirect()->route('site.demande'); // site de demande
+                return redirect()->route('welcome'); // site de demande
             }
         }
 

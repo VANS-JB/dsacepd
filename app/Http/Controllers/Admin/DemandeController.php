@@ -6,90 +6,121 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Demande;
 use App\Models\User;
+use App\Models\InfoAttestation;
 
 class DemandeController extends Controller
 {
-    /**
-     * Affiche la liste des demandes
-     */
-    public function index()
+    public function index(Request $request)
     {
-        $demandes = Demande::with('user')->latest()->paginate(10);
-        $agents = User::whereHas('role', function($q){
-            $q->where('libelle', 'agent');
-        })->get();
+        $query = Demande::with('user')->latest();
 
-        return view('admin.demandes.index', compact('demandes', 'agents'));
+        // Filtre par nom
+        if ($request->filled('search')) {
+            $search = $request->input('search');
+            $query->whereHas('user', function($q) use ($search) {
+                $q->where('name', 'like', "%{$search}%");
+            });
+        }
+
+        // Filtre par dates
+        if ($request->filled('date_debut')) {
+            $query->whereDate('created_at', '>=', $request->date_debut);
+        }
+        if ($request->filled('date_fin')) {
+            $query->whereDate('created_at', '<=', $request->date_fin);
+        }
+
+        $demandes = $query->paginate(10);
+
+        return view('admin.demandes.index', compact('demandes'));
     }
 
-    /**
-     * Formulaire de création d'une nouvelle demande
-     */
     public function create()
     {
-        return view('admin.infoattestation.create');
+        $users = User::whereHas('role', fn($q) => $q->where('libelle', 'demandeur'))->get();
+        return view('admin.demandes.create', compact('users'));
     }
 
-    /**
-     * Enregistre une nouvelle demande
-     */
     public function store(Request $request)
     {
+        $messages = [
+            'photo_releve.required' => 'Le champ "Relevé photo" est obligatoire.',
+            'photo_naissance.required' => 'Le champ "photo naissance" est obligatoire.',
+            'photo_releve.file' => 'Le relevé doit être un fichier valide.',
+            'photo_naissance.file' => 'La photo de naissance doit être un fichier valide.',
+            'photo_releve.mimes' => 'Format autorisé pour le relevé : jpg, png, pdf.',
+            'photo_naissance.mimes' => 'Format autorisé pour la photo de naissance : jpg, png, pdf.',
+            // autres messages si besoin...
+        ];
+
         $request->validate([
+            'user_id' => 'required|exists:users,id',
             'photo_releve' => 'required|file|mimes:jpg,png,pdf',
             'photo_naissance' => 'required|file|mimes:jpg,png,pdf',
-        ]);
+            'nom_complet' => 'required|string',
+            'date_naissance' => 'required|date',
+            'lieu_naissance' => 'required|string',
+            'ecole' => 'required|string',
+            'numero_table' => 'required|integer',
+            'session' => 'required|string',
+            'centre' => 'required|string',
+            'numero_registre' => 'required|string',
+        ], $messages);
 
+        // double vérification pour plus de clarté
+        if (! $request->hasFile('photo_releve') || ! $request->file('photo_releve')->isValid()) {
+            return back()->withErrors(['photo_releve' => 'Le fichier relevé n’a pas été reçu ou est invalide.'])->withInput();
+        }
+        if (! $request->hasFile('photo_naissance') || ! $request->file('photo_naissance')->isValid()) {
+            return back()->withErrors(['photo_naissance' => 'Le fichier acte de naissance n’a pas été reçu ou est invalide.'])->withInput();
+        }
+
+        // Stockage des fichiers
+        $photoRelevePath = $request->file('photo_releve')->store('releves');
+        $photoNaissancePath = $request->file('photo_naissance')->store('naissances');
+
+        // Création de la demande avec les chemins des fichiers
         $demande = new Demande();
-        $demande->photo_releve = $request->file('photo_releve')->store('releves');
-        $demande->photo_naissance = $request->file('photo_naissance')->store('naissances');
-        $demande->user_id = auth()->id();
+        // écrire dans la colonne existante 'id_users' (la table n'a pas 'user_id')
+        $demande->id_users = $request->input('user_id');
+        $demande->photo_releve = $photoRelevePath;
+        $demande->photo_naissance = $photoNaissancePath;
         $demande->save();
 
-        return redirect()->route('admin.demandes.index')->with('success', 'Demande créée avec succès.');
+        // Création de l’attestation liée
+        InfoAttestation::create([
+            'id_demande' => $demande->id,
+            'nom_complet' => $request->nom_complet,
+            'date_naissance' => $request->date_naissance,
+            'lieu_naissance' => $request->lieu_naissance,
+            'ecole' => $request->ecole,
+            'numero_table' => $request->numero_table,
+            'session' => $request->session,
+            'centre' => $request->centre,
+            'numero_registre' => $request->numero_registre,
+        ]);
+
+        return redirect()->route('demandes.index')->with('success', 'Demande enregistrée avec attestation.');
     }
 
-    
-
-    /**
-     * Affiche une demande spécifique
-     */
-    public function show($id)
-    {
-        $demande = Demande::with('user')->findOrFail($id);
-        return view('admin.demandes.show', compact('demande'));
-    }
-
-    /**
-     * Formulaire d’édition
-     */
     public function edit($id)
     {
-        $demande = Demande::findOrFail($id);
+        $demande = Demande::with('infoAttestation')->findOrFail($id);
         return view('admin.demandes.edit', compact('demande'));
     }
 
-    /**
-     * Met à jour une demande
-     */
     public function update(Request $request, $id)
     {
         $demande = Demande::findOrFail($id);
-
-        $demande->statut = $request->input('statut');
+        $demande->statut = $request->statut;
         $demande->save();
 
         return redirect()->route('admin.demandes.index')->with('success', 'Demande mise à jour.');
     }
 
-    /**
-     * Supprime une demande
-     */
     public function destroy($id)
     {
-        $demande = Demande::findOrFail($id);
-        $demande->delete();
-
-        return redirect()->route('admin.demandes.index')->with('success', 'Demande supprimée.');
+        Demande::findOrFail($id)->delete();
+        return redirect()->route('demandes.index')->with('success', 'Demande supprimée.');
     }
 }

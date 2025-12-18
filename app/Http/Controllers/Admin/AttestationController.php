@@ -17,11 +17,18 @@ class AttestationController extends Controller
     }
 
     /**
-     * Affiche une attestation pour impression
+     * Vue imprimable d’une attestation
      */
-    public function show($id)
+    public function print($id)
     {
-        $attestation = InfoAttestation::with('demande.user')->findOrFail($id);
-        return view('admin.attestations.show', compact('attestation'));
+        // Recherche par id_demande (l'URL fournit l'id de la demande)
+        $attestation = InfoAttestation::with('demande.user')->where('id_demande', $id)->first();
+
+        // Si aucune attestation liée à cette demande, retourner 404 proprement
+        if (! $attestation) {
+            abort(404, "Attestation introuvable pour la demande #{$id}.");
+        }
+
+        return view('admin.attestations.print', compact('attestation'));
     }
 }
