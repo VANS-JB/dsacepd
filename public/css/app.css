@@ -1,0 +1,211 @@
+/* RESET */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Segoe UI", Tahoma, sans-serif;
+}
+
+body {
+    background: #f6f7fb;
+    color: #333;
+    display: flex;
+}
+
+/* ================= SIDEBAR ================= */
+.sidebar {
+    width: 240px;
+    background: #ffffff;
+    height: 100vh;
+    border-right: 1px solid #e5e5e5;
+    padding: 20px 15px;
+}
+
+.sidebar::before {
+    content: "Administration";
+    display: block;
+    font-weight: 600;
+    font-size: 16px;
+    padding: 15px;
+    border-bottom: 1px solid #e5e5e5;
+    margin-bottom: 15px;
+}
+
+.sidebar ul {
+    list-style: none;
+}
+
+.sidebar ul li {
+    margin-bottom: 8px;
+}
+
+.sidebar ul li a {
+    display: flex;
+    align-items: center;
+    padding: 10px 15px;
+    text-decoration: none;
+    color: #444;
+    border-radius: 8px;
+    font-size: 14px;
+    transition: 0.3s;
+}
+
+.sidebar ul li a:hover {
+    background: #eef3ff;
+    color: #1f6bff;
+}
+
+.sidebar ul li a.active {
+    background: #1f6bff;
+    color: #fff;
+}
+
+/* ================= MAIN CONTENT ================= */
+.main-content {
+    flex: 1;
+    padding: 30px 40px;
+}
+
+/* ================= PAGE TITLE ================= */
+.page-title {
+    margin-bottom: 30px;
+}
+
+.page-title h1 {
+    font-size: 22px;
+    font-weight: 600;
+}
+
+.page-title p {
+    font-size: 14px;
+    color: #777;
+}
+
+/* ================= DASHBOARD CARDS ================= */
+.dashboard-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 25px;
+}
+
+.card {
+    background: #ffffff;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+}
+
+.card span {
+    font-size: 13px;
+    color: #777;
+}
+
+.card h2 {
+    margin-top: 10px;
+    font-size: 26px;
+    font-weight: 600;
+}
+
+/* ================= TITRES ================= */
+.main-content h1 {
+    font-size: 22px;
+    font-weight: 600;
+    margin-bottom: 25px;
+}
+
+.main-content h2 {
+    margin: 30px 0 15px;
+    font-size: 18px;
+}
+
+/* ================= STATS ================= */
+.stats-grid {
+    display: grid !important;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
+}
+
+.stat-box {
+    background: #ffffff;
+    padding: 22px;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.06);
+    font-size: 14px;
+    color: #555;
+}
+
+.stat-box strong {
+    display: block;
+    font-size: 26px;
+    color: #111;
+    margin-top: 10px;
+}
+
+/* ================= SEPARATEUR ================= */
+hr {
+    border: none;
+    border-top: 1px solid #e5e5e5;
+    margin: 30px 0;
+}
+
+/* ================= TABLE ================= */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background: #ffffff;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+}
+
+thead {
+    background: #f3f5f9;
+}
+
+thead th {
+    text-align: left;
+    font-size: 13px;
+    color: #555;
+    padding: 14px;
+}
+
+tbody td {
+    padding: 14px;
+    font-size: 14px;
+    border-top: 1px solid #eee;
+}
+
+tbody tr:hover {
+    background: #f9fbff;
+}
+
+/* ================= STATUT ================= */
+tbody td:nth-child(4) {
+    font-weight: 600;
+    color: #1f6bff;
+}
+
+/* ================= PAGINATION ================= */
+.pagination {
+    margin-top: 25px;
+    display: flex;
+    justify-content: flex-end;
+    gap: 6px;
+}
+
+.pagination a,
+.pagination span {
+    padding: 8px 12px;
+    font-size: 13px;
+    background: #ffffff;
+    border-radius: 6px;
+    text-decoration: none;
+    color: #444;
+    border: 1px solid #e5e5e5;
+}
+
+.pagination .active span {
+    background: #1f6bff;
+    color: #ffffff;
+    border-color: #1f6bff;
+}

@@ -1,0 +1,150 @@
+/* RESET */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Segoe UI", Tahoma, sans-serif;
+}
+
+body {
+    background: #f5f7fb;
+    color: #333;
+}
+
+/* ================= HEADER ================= */
+header {
+    background: #1f6bff;
+    color: #fff;
+    padding: 15px 50px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+header h1 {
+    font-size: 18px;
+    font-weight: 600;
+}
+
+header nav a {
+    color: #fff;
+    text-decoration: none;
+    margin-left: 15px;
+    padding: 8px 14px;
+    border-radius: 6px;
+    font-size: 14px;
+}
+
+header nav a:nth-child(2) {
+    background: #fff;
+    color: #1f6bff;
+}
+
+header nav a:nth-child(3) {
+    border: 1px solid #fff;
+}
+
+/* ================= MAIN ================= */
+main {
+    max-width: 1200px;
+    margin: auto;
+    padding: 40px 20px;
+}
+
+/* ================= HERO ================= */
+main > h1 {
+    text-align: center;
+    font-size: 26px;
+    margin-bottom: 40px;
+}
+
+/* ================= SERVICES ================= */
+.services {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 25px;
+    margin-bottom: 60px;
+}
+
+.service-box {
+    background: #fff;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+    text-align: center;
+}
+
+.service-box h3 {
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+.service-box p {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 20px;
+}
+
+.service-box a {
+    display: inline-block;
+    background: #1f6bff;
+    color: #fff;
+    padding: 10px 22px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+/* ================= HOW IT WORKS ================= */
+h2 {
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+ol {
+    display: flex;
+    justify-content: space-between;
+    list-style: none;
+    margin-bottom: 60px;
+}
+
+ol li {
+    background: #fff;
+    width: 22%;
+    text-align: center;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.06);
+    font-weight: 500;
+}
+
+/* ================= FAQ ================= */
+ul {
+    max-width: 700px;
+    margin: auto;
+    background: #fff;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+}
+
+ul li {
+    list-style: none;
+    padding: 10px 0;
+    font-size: 14px;
+}
+
+/* ================= FOOTER ================= */
+footer {
+    background: #fff;
+    margin-top: 80px;
+    padding: 40px;
+    text-align: center;
+    border-top: 1px solid #e5e5e5;
+}
+
+footer p {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 10px;
+}
