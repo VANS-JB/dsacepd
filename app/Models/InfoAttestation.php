@@ -23,7 +23,7 @@ class InfoAttestation extends Model
      *
      * @var string
      */
-    protected $primaryKey = 'id_infoattestation';
+    protected $primaryKey = 'id';
 
     /**
      * Les attributs qui sont mass assignable.

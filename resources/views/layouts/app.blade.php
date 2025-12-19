@@ -14,7 +14,7 @@
             <li><a href="#">Utilisateurs</a></li>
             <li><a href="{{ route('reclamations.index') }}">Réclamations</a></li>
             <li><a href="{{ route('infoattestation.index') }}">Attestations</a></li>
-            <li><a href="{{ route('notifications.index') }}">Notifications</a></li>
+            <li><a href="#">Notifications</a></li>
         </ul>
     </div>
 

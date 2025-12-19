@@ -107,10 +107,16 @@ Route::middleware('auth')->group(function () {
 
 
 
+
+
 Route::middleware('auth')->group(function () {
-    Route::get('/notifications', [NotificationController::class, 'index'])->name('notifications.index');
-    Route::get('/notifications/create/{userId}', [NotificationController::class, 'create'])->name('notifications.create');
-    Route::post('/notifications/store', [NotificationController::class, 'store'])->name('notifications.store');
+    Route::get('/attestations', [AttestationController::class, 'index'])->name('attestations.index');
+    Route::get('/attestation/create', [AttestationController::class, 'create'])->name('attestation.create');
+    Route::post('/attestation', [AttestationController::class, 'store'])->name('attestation.store');
+    Route::get('/attestation/{id}/edit', [AttestationController::class, 'edit'])->name('attestation.edit');
+    Route::put('/attestation/{id}', [AttestationController::class, 'update'])->name('attestation.update');
+    Route::delete('/attestation/{id}', [AttestationController::class, 'destroy'])->name('attestation.destroy');
+    Route::get('/attestation/{id}/print', [AttestationController::class, 'print'])->name('attestation.print');
 });
 
 
