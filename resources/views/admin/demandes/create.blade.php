@@ -64,3 +64,108 @@
     <button type="submit">Enregistrer</button>
 </form>
 @endsection
+
+<style>
+
+    /* ================= FORM DEMANDE + ATTESTATION ================= */
+
+.main-content {
+    padding: 30px;
+    overflow-x: hidden; /* empêche tout débordement horizontal */
+}
+
+/* TITRE */
+.main-content h1 {
+    font-size: 26px;
+    font-weight: 700;
+    color: #1f6bff;
+    margin-bottom: 25px;
+}
+
+/* FORMULAIRE */
+.main-content form {
+    max-width: 700px;      /* largeur contrôlée */
+    width: 100%;
+    background: #ffffff;
+    padding: 30px;
+    border-radius: 14px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+}
+
+/* LABELS */
+.main-content form label {
+    display: block;
+    font-size: 14px;
+    font-weight: 600;
+    color: #374151;
+    margin-bottom: 6px;
+}
+
+/* INPUTS / SELECT / FILE */
+.main-content form input,
+.main-content form select,
+.main-content form textarea {
+    width: 100%;
+    padding: 12px 14px;
+    font-size: 14px;
+    border-radius: 10px;
+    border: 1px solid #d1d5db;
+    background: #f9fafb;
+    margin-bottom: 18px;
+}
+
+/* FOCUS */
+.main-content form input:focus,
+.main-content form select:focus,
+.main-content form textarea:focus {
+    outline: none;
+    border-color: #1f6bff;
+    background: #ffffff;
+    box-shadow: 0 0 0 3px rgba(31,107,255,0.15);
+}
+
+/* INPUT FILE */
+.main-content input[type="file"] {
+    padding: 10px;
+    background: #ffffff;
+}
+
+/* ERREURS */
+.main-content div[style*="color:red"] ul {
+    background: #fff1f2;
+    padding: 15px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+
+.main-content div[style*="color:red"] li {
+    font-size: 13px;
+    color: #be123c;
+}
+
+/* BOUTON */
+.main-content form button {
+    width: 100%;
+    padding: 14px;
+    background: linear-gradient(135deg, #1f6bff, #3b82f6);
+    border: none;
+    border-radius: 12px;
+    font-size: 15px;
+    font-weight: 600;
+    color: #ffffff;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.main-content form button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 30px rgba(31,107,255,0.35);
+}
+
+/* RESPONSIVE */
+@media (max-width: 900px) {
+    .main-content form {
+        max-width: 100%;
+    }
+}
+</style>

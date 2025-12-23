@@ -29,6 +29,8 @@ class DashboardController extends Controller
             'totalNotifications',
             'demandes'
         ));
+
+        
     }
 
     

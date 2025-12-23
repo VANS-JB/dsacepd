@@ -23,7 +23,7 @@ class UserNotification extends Model
      *
      * @var string
      */
-    protected $primaryKey = 'id_notification';
+    protected $primaryKey = 'id';
 
     /**
      * Les attributs qui sont mass assignable.
@@ -34,6 +34,7 @@ class UserNotification extends Model
         'message',
         'date_notification',
         'id_users',
+        'id_demande',
     ];
 
     /**
@@ -64,4 +65,10 @@ class UserNotification extends Model
     {
         return $this->utilisateur();
     }
+
+    public function demande(): BelongsTo
+{
+    return $this->belongsTo(Demande::class, 'id_demande', 'id');
+}
+
 }

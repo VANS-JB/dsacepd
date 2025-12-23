@@ -14,8 +14,19 @@
             <li><a href="#">Utilisateurs</a></li>
             <li><a href="{{ route('reclamations.index') }}">Réclamations</a></li>
             <li><a href="{{ route('infoattestation.index') }}">Attestations</a></li>
-            <li><a href="#">Notifications</a></li>
+            <li><a href="{{ route('notifications.index') }}">Notifications</a></li>
         </ul>
+
+
+
+        <div class="user-info">
+            
+            <form method="POST" action="{{ route('logout') }}">
+                @csrf
+                <button type="submit">Se déconnecter</button>
+            </form>
+        </div>
+
     </div>
 
     <div class="main-content">

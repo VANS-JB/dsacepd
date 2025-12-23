@@ -9,8 +9,10 @@ use App\Http\Controllers\Admin\InfoAttestationController;
 use App\Http\Controllers\Admin\ReclamationController;
 use App\Http\Controllers\Admin\AttestationController;
 use App\Http\Controllers\Admin\NotificationController;
-use App\Http\Controllers\Demandeur\NotificationController as DemandeurNotificationController;
 use App\Http\Controllers\Admin\DashboardController;
+
+
+
 
 
 
@@ -97,10 +99,10 @@ Route::middleware('auth')->group(function () {
 
 
 
-Route::middleware('auth')->group(function () {
-    Route::get('/attestations', [AttestationController::class, 'index'])->name('attestations.index');
-    Route::get('/attestations/{id}/print', [AttestationController::class, 'print'])->name('attestations.print');
-});
+// Route::middleware('auth')->group(function () {
+//     Route::get('/attestations', [AttestationController::class, 'index'])->name('attestations.index');
+//     Route::get('/attestations/{id}/print', [AttestationController::class, 'print'])->name('attestations.print');
+// });
 
 
 
@@ -122,13 +124,40 @@ Route::middleware('auth')->group(function () {
 
 
 
-Route::middleware(['auth', 'role:demandeur'])->group(function () {
-    Route::get('/mes-notifications', [DemandeurNotificationController::class, 'index'])->name('demandeur.notifications');
-});
+// Route::middleware(['auth', 'role:demandeur'])->group(function () {
+//     Route::get('/mes-notifications', [DemandeurNotificationController::class, 'index'])->name('demandeur.notifications');
+// });
 
 
 
 
 Route::middleware('auth')->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+});
+
+
+
+
+// Routes accessibles aux admins/agents
+// Route::middleware('auth')->group(function () {
+//     // Liste des notifications
+//     Route::get('/notifications', [NotificationController::class, 'index'])->name('notifications.index');
+
+//     // Formulaire pour envoyer une notification liée à une demande
+//     Route::get('/notifications/{demandeId}/create', [NotificationController::class, 'create'])->name('notifications.create');
+
+//     // Enregistrement de la notification
+//     Route::post('/notifications/{demandeId}', [NotificationController::class, 'store'])->name('notifications.store');
+
+//     // Suppression d’une notification (optionnel)
+//     Route::delete('/notifications/{id}', [NotificationController::class, 'destroy'])->name('notifications.destroy');
+// });
+
+
+
+Route::middleware('auth')->group(function () {
+    Route::get('/notifications', [NotificationController::class, 'index'])->name('notifications.index');
+    Route::get('/notifications/{demandeId}/create', [NotificationController::class, 'create'])->name('notifications.create');
+    Route::post('/notifications/{demandeId}', [NotificationController::class, 'store'])->name('notifications.store');
+    Route::delete('/notifications/{id}', [NotificationController::class, 'destroy'])->name('notifications.destroy');
 });

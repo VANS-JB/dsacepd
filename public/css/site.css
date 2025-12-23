@@ -148,3 +148,26 @@ footer p {
     color: #666;
     margin-bottom: 10px;
 }
+
+/* ================= BOUTON DECONNEXION ================= */
+.user-info form {
+    display: inline-block;
+    margin-left: 15px;
+}
+
+.user-info form button {
+    background: #fff;
+    color: #1f6bff;
+    border: 1px solid #fff;
+    padding: 8px 14px;
+    border-radius: 6px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background 0.2s ease, color 0.2s ease, transform 0.2s ease;
+}
+
+.user-info form button:hover {
+    background: #e0e7ff;
+    color: #1f4dbb;
+    transform: translateY(-2px);
+}

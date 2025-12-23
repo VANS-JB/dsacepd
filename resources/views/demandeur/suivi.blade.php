@@ -37,4 +37,155 @@
             @endforelse
         </tbody>
     </table>
+
+    
+<h2>Mes notifications</h2>
+
+@php
+    // Si une demande est fournie par le contrôleur, on prend ses notifications.
+    // Sinon, on récupère les notifications liées à l'utilisateur authentifié.
+    if (isset($demande) && $demande) {
+        $notificationsList = $demande->notifications ?? collect();
+    } elseif (auth()->check()) {
+        $notificationsList = \App\Models\UserNotification::where('id_users', auth()->id())->latest()->get();
+    } else {
+        $notificationsList = collect();
+    }
+@endphp
+
+<ul>
+    @if($notificationsList->isNotEmpty())
+        @foreach($notificationsList as $notif)
+            <li>🔔 {{ optional($notif->date_notification)->format('d/m/Y H:i') ?? '' }} - {{ $notif->message }}</li>
+        @endforeach
+    @else
+        <li>Aucune notification pour le moment.</li>
+    @endif
+</ul>
+
 @endsection
+
+<style>
+/* ================= SUIVI DEMANDES & NOTIFICATIONS ================= */
+* {
+    box-sizing: border-box;
+    font-family: "Segoe UI", system-ui, sans-serif;
+}
+
+body {
+    background: linear-gradient(135deg, #1f6bff, #6fa8ff);
+    min-height: 100vh;
+    margin: 0;
+    padding: 20px;
+}
+
+/* TITRES */
+h1, h2 {
+    color: #ffffff;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+h1 {
+    font-size: 28px;
+}
+
+h2 {
+    font-size: 24px;
+    margin-top: 40px;
+}
+
+/* MESSAGES SUCCESS */
+div[style*="color:green"] {
+    max-width: 600px;
+    margin: 0 auto 20px;
+    padding: 14px 20px;
+    background: #d1fae5;
+    color: #065f46;
+    border-radius: 12px;
+    font-weight: 600;
+}
+
+/* TABLEAU */
+table {
+    width: 100%;
+    max-width: 900px;
+    margin: 0 auto 30px;
+    border-collapse: collapse;
+    background: #ffffff;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+    animation: slideFade 0.6s ease;
+}
+
+thead {
+    background: linear-gradient(135deg, #1f6bff, #3b82f6);
+    color: #ffffff;
+    font-weight: 600;
+}
+
+th, td {
+    padding: 14px 12px;
+    text-align: left;
+    border-bottom: 1px solid #e5e7eb;
+    font-size: 14px;
+}
+
+tr:last-child td {
+    border-bottom: none;
+}
+
+tbody tr:hover {
+    background: #f3f4f6;
+}
+
+/* LIENS DANS TABLEAU */
+table a {
+    color: #1f6bff;
+    font-weight: 600;
+    text-decoration: none;
+    transition: color 0.25s ease;
+}
+
+table a:hover {
+    color: #3b82f6;
+}
+
+/* LISTE NOTIFICATIONS */
+ul {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 0;
+    list-style: none;
+}
+
+ul li {
+    background: #ffffff;
+    margin-bottom: 12px;
+    padding: 14px 18px;
+    border-radius: 12px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.08);
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    animation: slideFade 0.6s ease;
+}
+
+ul li:last-child {
+    margin-bottom: 0;
+}
+
+/* ANIMATION */
+@keyframes slideFade {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+</style>

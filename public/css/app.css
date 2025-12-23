@@ -209,3 +209,51 @@ tbody td:nth-child(4) {
     color: #ffffff;
     border-color: #1f6bff;
 }
+
+
+/* ================= LOGOUT ================= */
+
+.sidebar .user-info {
+    position: absolute;
+    bottom: 25px;
+    left: 20px;
+    right: 20px;
+}
+
+/* FORM */
+.sidebar .user-info form {
+    width: 100%;
+}
+
+/* BOUTON */
+.sidebar .user-info button {
+    width: 100%;
+    padding: 12px;
+    border-radius: 10px;
+    border: none;
+    background: linear-gradient(135deg, #ef4444, #dc2626);
+    color: #ffffff;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+/* HOVER */
+.sidebar .user-info button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px rgba(239,68,68,0.4);
+}
+
+/* ACTIVE */
+.sidebar .user-info button:active {
+    transform: translateY(0);
+}
+
+/* RESPONSIVE */
+@media (max-height: 650px) {
+    .sidebar .user-info {
+        position: static;
+        margin-top: 30px;
+    }
+}

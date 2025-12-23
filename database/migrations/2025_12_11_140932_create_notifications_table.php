@@ -19,6 +19,9 @@ return new class extends Migration
             $table->foreignId('id_users')
                   ->constrained('users')
                   ->onDelete('cascade'); // Si l'user est supprimé, ses notifs aussi
+            $table->foreignId('id_demande')
+                  ->constrained('demandes')
+                  ->onDelete('cascade');
             $table->timestamps();
         });
     }
