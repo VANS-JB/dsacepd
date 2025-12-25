@@ -3,8 +3,10 @@
 @section('title', 'Accueil - Services DSA')
 
 @section('content')
-    <h1>Bienvenue sur la plateforme officielle des attestations CEPD</h1>
 
+   
+    <h1>Bienvenue sur la plateforme officielle des attestations CEPD</h1>
+    
     <div class="services">
         <div class="service-box">
             <h3>Faire une demande</h3>
@@ -46,9 +48,5 @@
         <li>❗ Que faire s’il y a un problème avec ma demande ?</li>
     </ul>
 
-    <footer>
-        <p>Plateforme officielle pour les demandes d’attestations d’examen du DSA-CEPD.</p>
-        <p>Contact : +228 90 00 00 00</p>
-        <p>Suivez-nous : Facebook | LinkedIn | Twitter</p>
-    </footer>
+   
 @endsection
