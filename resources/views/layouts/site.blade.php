@@ -71,7 +71,7 @@
     <rect x="160" y="80" width="8" height="45"
           fill="#FFFFFF"/>
 </svg></div>
-            <h3>DSA‑CEPD</h3>
+            <h3>DSACEPD</h3>
             <p>Plateforme numérique de demande et suivi d’attestation CEPD, effectuer vos demandes en ligne, suivre leur traitement et obtenir vos attestations rapidement et en toute sécurité.</p>
         </div>
 

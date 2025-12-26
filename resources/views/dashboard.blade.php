@@ -23,6 +23,8 @@
                 <th>Référence</th>
                 <th>Demandeur</th>
                 <th>Email</th>
+                <th>Photo naissance</th>
+                <th>Photo relevé</th>
                 <th>Statut</th>
                 <th>Date</th>
             </tr>
@@ -33,6 +35,25 @@
                     <td>{{ $demande->id }}</td>
                     <td>{{ optional($demande->user)->name ?? 'Utilisateur supprimé' }}</td>
                     <td>{{ optional($demande->user)->email ?? '—' }}</td>
+                    <td>
+    <img 
+    src="{{ asset('storage/' . $demande->photo_naissance) }}"
+    style="width:50px;height:50px;object-fit:cover;cursor:pointer"
+    onclick="openLightbox('{{ asset('storage/' . $demande->photo_naissance) }}')"
+/>
+
+</td>
+<td>
+    <img 
+    src="{{ asset('storage/' . $demande->photo_releve) }}"
+    style="width:50px;height:50px;object-fit:cover;cursor:pointer"
+    onclick="openLightbox('{{ asset('storage/' . $demande->photo_releve) }}')"
+/>
+
+</td>
+
+
+
                     <td>{{ ucfirst($demande->statut ?? 'en attente') }}</td>
                     <td>{{ optional($demande->created_at)->format('Y-m-d H:i') ?? '' }}</td>
                 </tr>
@@ -45,6 +66,22 @@
     </table>
 
     {{ $demandes->links() }}
+
+   <div id="lightbox" onclick="closeLightbox()" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.9);z-index:9999;justify-content:center;align-items:center;">
+    <img id="lightbox-img" style="max-width:90%;max-height:90%;">
+</div>
+
+<script>
+function openLightbox(src) {
+    document.getElementById('lightbox-img').src = src;
+    document.getElementById('lightbox').style.display = 'flex';
+}
+
+function closeLightbox() {
+    document.getElementById('lightbox').style.display = 'none';
+}
+</script>
+
 @endsection
 
 <style>
@@ -171,6 +208,28 @@ hr {
     background: #1f6bff;
     color: #ffffff;
     border-color: #1f6bff;
+}
+
+
+
+
+.lightbox {
+    display: none;
+    position: fixed;
+    z-index: 9999;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.9);
+    justify-content: center;
+    align-items: center;
+}
+
+.lightbox img {
+    max-width: 90%;
+    max-height: 90%;
+    border-radius: 8px;
 }
 
 /* ================= RESPONSIVE ================= */

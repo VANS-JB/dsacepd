@@ -76,8 +76,8 @@ class DemandeController extends Controller
         }
 
         // Stockage des fichiers
-        $photoRelevePath = $request->file('photo_releve')->store('releves');
-        $photoNaissancePath = $request->file('photo_naissance')->store('naissances');
+        $photoRelevePath = $request->file('photo_releve')->store('releves', 'public');
+        $photoNaissancePath = $request->file('photo_naissance')->store('naissances', 'public');
 
         // Création de la demande avec les chemins des fichiers
         $demande = new Demande();

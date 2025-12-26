@@ -76,16 +76,18 @@ body {
     background: linear-gradient(135deg, #1f6bff, #6fa8ff);
     min-height: 100vh;
     margin: 0;
-    padding: 20px;
+    /* padding: 20px; */
 }
 
 /* TITRES */
-h1, h2 {
-    color: #ffffff;
+
+h1, h2{
+    color: #1f6bff;
     font-weight: 700;
     text-align: center;
     margin-bottom: 20px;
 }
+
 
 h1 {
     font-size: 28px;
