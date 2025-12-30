@@ -115,7 +115,7 @@ class DemandeController extends Controller
         $demande->statut = $request->statut;
         $demande->save();
 
-        return redirect()->route('admin.demandes.index')->with('success', 'Demande mise à jour.');
+        return redirect()->route('demandes.index')->with('success', 'Demande mise à jour.');
     }
 
     public function destroy($id)

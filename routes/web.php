@@ -62,7 +62,7 @@ Route::get('/', function () {
 
 
 Route::middleware('auth')->group(function () {
-    Route::resource('admin/demandes', DemandeController::class);
+    Route::resource('demandes', DemandeController::class);
 });
 
 

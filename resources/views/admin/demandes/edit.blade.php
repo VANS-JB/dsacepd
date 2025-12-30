@@ -1,10 +1,11 @@
 @extends('layouts.app')
+
 @section('title', 'Modifier demande')
 
 @section('content')
 <h1>Modifier la demande #{{ $demande->id }}</h1>
 
-<form method="POST" action="{{ route('admin.demandes.update', $demande->id) }}">
+<form method="POST" action="{{ route('demandes.update', $demande->id) }}">
     @csrf
     @method('PUT')
 
