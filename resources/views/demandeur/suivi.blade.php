@@ -21,16 +21,18 @@
             </tr>
         </thead>
         <tbody>
-            @forelse($demandes as $demande)
+            @forelse($demande as $d)
+            
                 <tr>
-                    <td>{{ $demande->id }}</td>
-                    <td>{{ ucfirst($demande->statut ?? 'en attente') }}</td>
-                    <td>{{ $demande->created_at->format('Y-m-d H:i') }}</td>
+                    <td>{{ $d->id }}</td>
+                    <td>{{ ucfirst($d->statut ?? 'en attente') }}</td>
+                    <td>{{ $d->created_at->format('Y-m-d H:i') }}</td>
                     <td>
-                        <a href="{{ route('demandeur.reclamation', $demande->id) }}">Faire une réclamation</a>
+                        <a href="{{ route('demandeur.reclamation', $d->id) }}">Faire une réclamation</a>
                     </td>
                 </tr>
             @empty
+            
                 <tr>
                     <td colspan="4">Vous n’avez encore soumis aucune demande.</td>
                 </tr>
@@ -38,30 +40,9 @@
         </tbody>
     </table>
 
-    
+  
 <h2>Mes notifications</h2>
 
-@php
-    // Si une demande est fournie par le contrôleur, on prend ses notifications.
-    // Sinon, on récupère les notifications liées à l'utilisateur authentifié.
-    if (isset($demande) && $demande) {
-        $notificationsList = $demande->notifications ?? collect();
-    } elseif (auth()->check()) {
-        $notificationsList = \App\Models\UserNotification::where('id_users', auth()->id())->latest()->get();
-    } else {
-        $notificationsList = collect();
-    }
-@endphp
-
-<ul>
-    @if($notificationsList->isNotEmpty())
-        @foreach($notificationsList as $notif)
-            <li>🔔 {{ optional($notif->date_notification)->format('d/m/Y H:i') ?? '' }} - {{ $notif->message }}</li>
-        @endforeach
-    @else
-        <li>Aucune notification pour le moment.</li>
-    @endif
-</ul>
 
 @endsection
 

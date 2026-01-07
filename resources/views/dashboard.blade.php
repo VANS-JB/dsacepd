@@ -30,7 +30,9 @@
             </tr>
         </thead>
         <tbody>
+           
             @forelse($demandes as $demande)
+            
                 <tr>
                     <td>{{ $demande->id }}</td>
                     <td>{{ optional($demande->user)->name ?? 'Utilisateur supprimé' }}</td>
@@ -61,7 +63,9 @@
                 <tr>
                     <td colspan="5">Aucune demande trouvée.</td>
                 </tr>
+            
             @endforelse
+           
         </tbody>
     </table>
 

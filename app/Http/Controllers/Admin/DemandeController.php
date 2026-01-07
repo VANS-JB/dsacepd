@@ -7,11 +7,14 @@ use Illuminate\Http\Request;
 use App\Models\Demande;
 use App\Models\User;
 use App\Models\InfoAttestation;
+use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\Log;
 
 class DemandeController extends Controller
 {
     public function index(Request $request)
     {
+        
         $query = Demande::with('user')->latest();
 
         // Filtre par nom
@@ -30,9 +33,9 @@ class DemandeController extends Controller
             $query->whereDate('created_at', '<=', $request->date_fin);
         }
 
-        $demandes = $query->paginate(10);
+        $mesDemandesAdmin = Demande::where('created_by', auth()->id())->paginate(10);
 
-        return view('admin.demandes.index', compact('demandes'));
+        return view('admin.demandes.index', compact('mesDemandesAdmin'));
     }
 
     public function create()
@@ -83,6 +86,7 @@ class DemandeController extends Controller
         $demande = new Demande();
         // écrire dans la colonne existante 'id_users' (la table n'a pas 'user_id')
         $demande->id_users = $request->input('user_id');
+        $demande->created_by = auth()->id();
         $demande->photo_releve = $photoRelevePath;
         $demande->photo_naissance = $photoNaissancePath;
         $demande->save();
@@ -112,10 +116,18 @@ class DemandeController extends Controller
     public function update(Request $request, $id)
     {
         $demande = Demande::findOrFail($id);
-        $demande->statut = $request->statut;
-        $demande->save();
 
-        return redirect()->route('demandes.index')->with('success', 'Demande mise à jour.');
+        // Ne tenter la mise à jour que si la colonne 'statut' existe en base.
+        if (Schema::hasColumn('demandes', 'statut')) {
+            $demande->statut = $request->statut;
+            $demande->save();
+
+            return redirect()->route('demandes.index')->with('success', 'Demande mise à jour.');
+        }
+
+        // Si la colonne n'existe pas, on évite l'exception et on loggue / signale.
+        Log::warning("Colonne 'statut' absente dans la table 'demandes' - update ignoré (demande id={$id}).");
+        return redirect()->route('demandes.index')->with('warning', "La colonne 'statut' est absente en base ; mise à jour non effectuée.");
     }
 
     public function destroy($id)

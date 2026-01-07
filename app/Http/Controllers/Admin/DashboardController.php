@@ -13,6 +13,7 @@ class DashboardController extends Controller
 {
     public function index()
     {
+        $user = auth()->user();
         // Statistiques
         $totalDemandes = Demande::count();
         $attestationsGenerees = InfoAttestation::count();
@@ -20,7 +21,11 @@ class DashboardController extends Controller
         $totalNotifications = UserNotification::count();
 
         // Liste des demandes avec demandeur
-        $demandes = Demande::with('user')->latest()->paginate(10);
+        $demandes = Demande::whereColumn('id_users', 'created_by') // auteur = bénéficiaire
+                   ->with('user')
+                   ->latest()
+                   ->paginate(10);
+      
 
         return view('dashboard', compact(
             'totalDemandes',
@@ -32,6 +37,8 @@ class DashboardController extends Controller
 
         
     }
+
+    
 
     
 }

@@ -14,6 +14,7 @@ class DemandeurController extends Controller
      */
     public function create()
     {
+        
         return view('demandeur.demande');
     }
 
@@ -31,6 +32,7 @@ class DemandeurController extends Controller
         $demande->photo_releve = $request->file('photo_releve')->store('releves');
         $demande->photo_naissance = $request->file('photo_naissance')->store('naissances');
         $demande->id_users = auth()->id(); // lien avec l’utilisateur connecté
+        $demande->created_by = auth()->id();
         $demande->save();
 
         return redirect()->route('demandeur.suivi')->with('success', 'Votre demande a été soumise avec succès.');
@@ -41,9 +43,20 @@ class DemandeurController extends Controller
      */
     public function suivi()
     {
-        $demandes = Demande::where('id_users', auth()->id())->latest()->get();
-        return view('demandeur.suivi', compact('demandes'));
+        $user = auth()->user();
+
+        if($user->role->libelle === 'demandeur'){
+    $demande = Demande::where('id_users', $user->id)
+                      ->orderBy('created_at', 'desc')
+                      ->get();
+} elseif($user->role->libelle === 'admin') {
+    $demande = Demande::latest()->get();
+} else {
+    abort(403, 'Accès non autorisé.');
+}
+        return view('demandeur.suivi', compact('demande'));
     }
+
 
     /**
      * Formulaire de réclamation

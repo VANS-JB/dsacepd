@@ -30,7 +30,9 @@
         </tr>
     </thead>
     <tbody>
-        @forelse($demandes as $demande)
+        
+        @forelse($mesDemandesAdmin as $demande)
+        
             <tr>
                 <td>{{ $demande->id }}</td>
                 <td>{{ $demande->user->name }}</td>
@@ -43,13 +45,16 @@
                     </form>
                 </td>
             </tr>
+            
         @empty
             <tr><td colspan="4">Aucune demande trouvée.</td></tr>
+            
         @endforelse
+       
     </tbody>
 </table>
 
-{{ $demandes->appends(request()->query())->links() }}
+{{ $mesDemandesAdmin->appends(request()->query())->links() }}
 @endsection
 
 <style>

@@ -37,6 +37,8 @@ class Demande extends Model
         'photo_naissance',
         'id_users',
         'date_demande',
+        'statut',
+        'created_by',
     ];
 
     /**
@@ -67,7 +69,10 @@ class Demande extends Model
         return $this->belongsTo(User::class, 'id_users', 'id');
     }
 
-   
+    public function creator()
+    {
+        return $this->belongsTo(User::class, 'created_by', 'id');
+    }       
 
     /**
      * Relation : Une demande peut avoir une réclamation.

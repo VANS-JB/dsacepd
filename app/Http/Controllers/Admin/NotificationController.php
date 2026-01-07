@@ -7,6 +7,8 @@ use App\Models\User;
 use App\Models\UserNotification;
 use App\Models\Demande;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\Log;
 
 class NotificationController extends Controller
 {
@@ -76,11 +78,27 @@ class NotificationController extends Controller
         UserNotification::create($data);
 
         // mettre à jour le statut de la demande si on en a une
-        if ($demande) {
-            $demande->update(['statut' => 'attestation prête']);
-        } elseif (! empty($data['id_demande'])) {
-            $d = Demande::find($data['id_demande']);
-            if ($d) { $d->update(['statut' => 'attestation prête']); }
+        try {
+            if (isset($demande)) {
+                // ne tenter la mise à jour que si la colonne 'statut' existe
+                if (Schema::hasColumn('demandes', 'statut')) {
+                    $demande->update(['statut' => 'attestation prête']);
+                } else {
+                    Log::warning("Impossible de mettre à jour 'statut' : colonne absente (demande id={$demande->id}).");
+                }
+            } elseif (! empty($data['id_demande'])) {
+                $d = Demande::find($data['id_demande']);
+                if ($d) {
+                    if (Schema::hasColumn('demandes', 'statut')) {
+                        $d->update(['statut' => 'attestation prête']);
+                    } else {
+                        Log::warning("Impossible de mettre à jour 'statut' : colonne absente (demande id={$d->id}).");
+                    }
+                }
+            }
+        } catch (\Exception $e) {
+            // éviter de faire planter l'utilisateur pour une opération non critique
+            Log::error("Erreur lors de la mise à jour du statut de la demande : " . $e->getMessage());
         }
 
         return redirect()->route('notifications.index')->with('success', 'Notification envoyée au demandeur.');
