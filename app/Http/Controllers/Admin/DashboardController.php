@@ -16,19 +16,21 @@ class DashboardController extends Controller
         $user = auth()->user();
         // Statistiques
         $totalDemandes = Demande::count();
+        $totalDemandesAdmin = Demande::where('created_by', $user->id)->count();
         $attestationsGenerees = InfoAttestation::count();
         $totalReclamations = Reclamation::count();
         $totalNotifications = UserNotification::count();
 
         // Liste des demandes avec demandeur
-        $demandes = Demande::whereColumn('id_users', 'created_by') // auteur = bénéficiaire
-                   ->with('user')
-                   ->latest()
-                   ->paginate(10);
+        $demandes = Demande::with('user')
+            ->latest()
+            ->paginate(10);
+
       
 
         return view('dashboard', compact(
             'totalDemandes',
+            'totalDemandesAdmin',
             'attestationsGenerees',
             'totalReclamations',
             'totalNotifications',

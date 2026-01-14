@@ -15,6 +15,7 @@ class DemandeController extends Controller
     public function index(Request $request)
     {
         
+        
         $query = Demande::with('user')->latest();
 
         // Filtre par nom
@@ -33,15 +34,17 @@ class DemandeController extends Controller
             $query->whereDate('created_at', '<=', $request->date_fin);
         }
 
-        $mesDemandesAdmin = Demande::where('created_by', auth()->id())->paginate(10);
+        $demandes = $query->paginate(10);
 
-        return view('admin.demandes.index', compact('mesDemandesAdmin'));
+        
+
+        return view('admin.demandes.index', compact('demandes'));
     }
 
     public function create()
     {
-        $users = User::whereHas('role', fn($q) => $q->where('libelle', 'demandeur'))->get();
-        return view('admin.demandes.create', compact('users'));
+        $demandes = Demande::with('user')->latest()->get();
+        return view('admin.demandes.create', compact('demandes'));
     }
 
     public function store(Request $request)
@@ -57,7 +60,8 @@ class DemandeController extends Controller
         ];
 
         $request->validate([
-            'user_id' => 'required|exists:users,id',
+            'id_demande' => 'required|exists:demandes,id',
+            'sexe' => 'required|string',
             'photo_releve' => 'required|file|mimes:jpg,png,pdf',
             'photo_naissance' => 'required|file|mimes:jpg,png,pdf',
             'nom_complet' => 'required|string',
@@ -67,8 +71,12 @@ class DemandeController extends Controller
             'numero_table' => 'required|integer',
             'session' => 'required|string',
             'centre' => 'required|string',
+            'anonymat' => 'required|string',
             'numero_registre' => 'required|string',
         ], $messages);
+
+        // ⚡ Récupérer la demande existante
+        $demande = Demande::findOrFail($request->id_demande);
 
         // double vérification pour plus de clarté
         if (! $request->hasFile('photo_releve') || ! $request->file('photo_releve')->isValid()) {
@@ -82,18 +90,12 @@ class DemandeController extends Controller
         $photoRelevePath = $request->file('photo_releve')->store('releves', 'public');
         $photoNaissancePath = $request->file('photo_naissance')->store('naissances', 'public');
 
-        // Création de la demande avec les chemins des fichiers
-        $demande = new Demande();
-        // écrire dans la colonne existante 'id_users' (la table n'a pas 'user_id')
-        $demande->id_users = $request->input('user_id');
-        $demande->created_by = auth()->id();
-        $demande->photo_releve = $photoRelevePath;
-        $demande->photo_naissance = $photoNaissancePath;
-        $demande->save();
-
+       
+       
         // Création de l’attestation liée
         InfoAttestation::create([
             'id_demande' => $demande->id,
+            'sexe' => $request->sexe,
             'nom_complet' => $request->nom_complet,
             'date_naissance' => $request->date_naissance,
             'lieu_naissance' => $request->lieu_naissance,
@@ -101,8 +103,13 @@ class DemandeController extends Controller
             'numero_table' => $request->numero_table,
             'session' => $request->session,
             'centre' => $request->centre,
+            'anonymat' => $request->anonymat,
             'numero_registre' => $request->numero_registre,
         ]);
+
+        // Mise à jour du statut de la demande
+        $demande->statut = 'validée';
+        $demande->save();
 
         return redirect()->route('demandes.index')->with('success', 'Demande enregistrée avec attestation.');
     }
@@ -117,13 +124,14 @@ class DemandeController extends Controller
     {
         $demande = Demande::findOrFail($id);
 
+
         // Ne tenter la mise à jour que si la colonne 'statut' existe en base.
-        if (Schema::hasColumn('demandes', 'statut')) {
+        
             $demande->statut = $request->statut;
             $demande->save();
 
             return redirect()->route('demandes.index')->with('success', 'Demande mise à jour.');
-        }
+        
 
         // Si la colonne n'existe pas, on évite l'exception et on loggue / signale.
         Log::warning("Colonne 'statut' absente dans la table 'demandes' - update ignoré (demande id={$id}).");

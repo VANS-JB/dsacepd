@@ -18,6 +18,7 @@ return new class extends Migration
             $table->foreignId('id_users') // Nom logique pour la relation
                   ->constrained('users') // Référence la table 'users'
                   ->onDelete('cascade'); // Si un user est supprimé, ses demandes aussi
+            $table->string('reference')->unique(); // Référence unique de la demande
             $table->string('created_by')->default('demandeur');      
             $table->dateTime('date_demande')->useCurrent(); // Date automatique à la création
             $table->timestamps();

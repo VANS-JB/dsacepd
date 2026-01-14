@@ -23,6 +23,7 @@ class DemandeurAuthController extends Controller
             'name' => 'required|string',
             'email' => 'required|email|unique:users',
             'password' => 'required|min:6|confirmed',
+            'confidentialite' => 'accepted',
         ]);
 
         $user = User::create([
@@ -47,6 +48,7 @@ class DemandeurAuthController extends Controller
 
             if ($user->role->libelle === 'demandeur') {
                 return redirect()->route('welcome');
+                
             }
         }
 
@@ -55,4 +57,10 @@ class DemandeurAuthController extends Controller
         ]);
     }
 
+    // Déconnexion
+    public function logout()
+    {
+        Auth::logout();
+        return redirect()->route('welcome');
+    }
 }

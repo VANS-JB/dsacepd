@@ -15,15 +15,28 @@
     @csrf
 
     <label>Demandeur :</label>
-    <select name="user_id" required>
-        <option value="">-- Sélectionner --</option>
-        @foreach($users as $user)
-            <option value="{{ $user->id }}">{{ $user->name }} ({{ $user->email }})</option>
+     <!-- Sélection de la demande existante -->
+    <label>Demande :</label>
+    <select name="id_demande" required>
+        <option value="">-- Sélectionner une demande --</option>
+        @foreach($demandes as $demande)
+            <option value="{{ $demande->id }}">
+                Réf: {{ $demande->reference }} - {{ $demande->user->name }}
+                (Statut: {{ $demande->statut }})
+            </option>
         @endforeach
     </select><br><br>
 
+
     <label>Nom complet :</label>
     <input type="text" name="nom_complet" required><br><br>
+
+    <label>Sexe :</label>
+    <select name="sexe" required>
+        <option value="">-- Sélectionner le sexe --</option>
+        <option value="M">M</option>
+        <option value="F">F</option>
+    </select><br><br>
 
     <label>Date de naissance :</label>
     <input type="date" name="date_naissance" required><br><br>
@@ -42,6 +55,9 @@
 
     <label>Centre :</label>
     <input type="text" name="centre" required><br><br>
+
+    <label>Anonymat :</label>
+    <input type="text" name="anonymat" required><br><br>
 
     <label>Numéro registre :</label>
     <input type="text" name="numero_registre" required><br><br>

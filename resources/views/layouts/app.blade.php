@@ -10,11 +10,10 @@
         <ul>
             <li><a href="{{ route('dashboard') }}">Tableau de bord</a></li>
             <li><a href="{{ route('demandes.index') }}">Demandes</a></li>
-            <li><a href="">Agents</a></li>
-            <li><a href="#">Utilisateurs</a></li>
             <li><a href="{{ route('reclamations.index') }}">Réclamations</a></li>
             <li><a href="{{ route('infoattestation.index') }}">Attestations</a></li>
             <li><a href="{{ route('notifications.index') }}">Notifications</a></li>
+            <li><a href="{{ route('contact.index') }}">Messages de contact</a></li>
         </ul>
 
 

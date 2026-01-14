@@ -31,7 +31,7 @@
     </thead>
     <tbody>
         
-        @forelse($mesDemandesAdmin as $demande)
+        @forelse($demandes as $demande)
         
             <tr>
                 <td>{{ $demande->id }}</td>
@@ -54,7 +54,7 @@
     </tbody>
 </table>
 
-{{ $mesDemandesAdmin->appends(request()->query())->links() }}
+{{ $demandes->appends(request()->query())->links() }}
 @endsection
 
 <style>

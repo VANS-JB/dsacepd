@@ -21,11 +21,20 @@
             </tr>
         </thead>
         <tbody>
-            @forelse($demande as $d)
+            @forelse($demandes as $d)
             
                 <tr>
-                    <td>{{ $d->id }}</td>
-                    <td>{{ ucfirst($d->statut ?? 'en attente') }}</td>
+                    <td>{{ $d->reference }}</td>
+                    <td>
+                        @if($d->statut === 'validée')
+                            <span style="color:green;font-weight:bold;">Validée ✅</span>
+                        @elseif($d->statut === 'rejetée')
+                            <span style="color:red;font-weight:bold;">Rejetée ❌</span>
+                        @else
+                            <span style="color:orange;font-weight:bold;">En attente ⏳</span>
+                        @endif
+
+                    </td>
                     <td>{{ $d->created_at->format('Y-m-d H:i') }}</td>
                     <td>
                         <a href="{{ route('demandeur.reclamation', $d->id) }}">Faire une réclamation</a>
@@ -42,6 +51,24 @@
 
   
 <h2>Mes notifications</h2>
+
+@if($notifications->isEmpty())
+    <p>Aucune notification pour le moment.</p>
+@else
+    <ul>
+        @foreach($notifications as $notif)
+            <li>
+                📩 {{ $notif->message }}
+                <small style="color:gray;">
+                    ({{ $notif->date_notification->format('Y-m-d H:i') }})
+                </small>
+            </li>
+        @endforeach
+    </ul>
+@endif
+
+
+
 
 
 @endsection

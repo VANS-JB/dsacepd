@@ -39,6 +39,8 @@ class Demande extends Model
         'date_demande',
         'statut',
         'created_by',
+        'reference',
+
     ];
 
     /**

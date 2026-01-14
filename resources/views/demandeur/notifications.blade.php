@@ -1,4 +1,4 @@
-@extends('layouts.site')
+<!-- @extends('layouts.site')
 
 @section('title', 'Mes notifications')
 
@@ -39,4 +39,4 @@
             @endforelse
         </tbody>
     </table>
-@endsection
+@endsection -->

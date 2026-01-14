@@ -11,7 +11,7 @@ return new class extends Migration
         Schema::table('demandes', function (Blueprint $table) {
             // Ajout d'une colonne statut si elle n'existe pas déjà
             if (! Schema::hasColumn('demandes', 'statut')) {
-                $table->enum('statut', ['en attente', 'acceptée', 'refusée'])->default('en attente')->after('photo_naissance');
+                $table->enum('statut', ['en attente', 'validée', 'rejetée'])->default('en attente')->after('photo_naissance');
             }
         });
     }

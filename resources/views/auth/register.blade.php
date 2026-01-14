@@ -30,6 +30,13 @@
 
         <label>Confirmer mot de passe :</label>
         <input type="password" name="password_confirmation" required><br><br>
+         
+         <div>
+        <input type="checkbox" name="confidentialite" id="confidentialite" required>
+        <label for="confidentialite">
+            J’accepte la <a href="{{ route('confidentialite') }}" target="_blank">politique de confidentialité</a>
+        </label>
+        </div>
 
         <button type="submit">S’inscrire</button>
     </form>
@@ -133,6 +140,11 @@ div ul {
 div ul li {
     font-size: 13px;
     color: #be123c;
+}
+
+input[type="checkbox"] {
+    width: auto;
+    margin-right: 8px;
 }
 
 /* ANIMATION */

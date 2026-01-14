@@ -153,7 +153,7 @@
         Sous le N° Table :
         <strong>{{ $attestation->numero_table }}</strong>
         &nbsp;&nbsp;&nbsp;d’Anonymat :
-        <strong>{{ $attestation->anonymat }}GBTH445</strong>
+        <strong>{{ $attestation->anonymat }}</strong>
         &nbsp;&nbsp;&nbsp;du Registre N° :
         <strong>{{ $attestation->numero_registre }}</strong><br>
 

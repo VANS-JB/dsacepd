@@ -14,12 +14,14 @@ return new class extends Migration
         Schema::create('info_attestation', function (Blueprint $table) {
             $table->id();
             $table->string('nom_complet');
+            $table->string('sexe');
             $table->date('date_naissance');
             $table->string('lieu_naissance'); // J'ai changé le type de 'date' à 'varchar'
             $table->string('ecole');
             $table->integer('numero_table');
             $table->string('session'); // Ex: "2024"
             $table->string('centre');
+            $table->string('anonymat'); 
             $table->string('numero_registre');
             $table->foreignId('id_demande')
                   ->constrained('demandes')

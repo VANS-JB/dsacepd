@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Models\UserNotification;
@@ -31,79 +32,27 @@ class NotificationController extends Controller
      * - POST /notifications/store avec id_users ou demande_id
      * - ou POST /notifications/{demandeId} (param route)
      */
-    public function store(Request $request, $demandeId = null)
-    {
-        // récupérer l'id de la demande (route ou champ)
-        $demandeId = $demandeId ?? $request->input('demande_id') ?? $request->route('demandeId') ?? null;
-        $demande = $demandeId ? Demande::find($demandeId) : null;
+    public function store(Request $request, $demandeId)
+{
+    $request->validate([
+        'message' => 'required|string|max:255',
+    ]);
 
-        // règles de validation
-        $rules = ['message' => 'required|string|max:255'];
-        if (! $demande && ! $request->filled('id_users')) {
-            // si pas de demande liée, on exige id_users
-            $rules['id_users'] = 'required|exists:users,id';
-        } elseif ($request->filled('id_users')) {
-            $rules['id_users'] = 'exists:users,id';
-        }
+    $demande = Demande::with('user')->findOrFail($demandeId);
 
-        $request->validate($rules);
+    // Créer la notification
+    UserNotification::create([
+        'id_users' => $demande->user->id,
+        'id_demande' => $demande->id,
+        'message' => $request->message,
+        'date_notification' => now(),
+    ]);
 
-        // déterminer l'utilisateur cible
-        $userId = null;
-        if ($demande) {
-            // essayer plusieurs colonnes possibles si votre schema varie
-            $userId = $demande->id_users ?? $demande->user_id ?? optional($demande->user)->id;
-        }
-        if (! $userId) {
-            $userId = $request->input('id_users') ?? null;
-        }
+    // ⚡ Pas besoin de mettre à jour le statut ici
 
-        if (! $userId || ! User::find($userId)) {
-            return back()->withErrors(['id_users' => 'Utilisateur cible introuvable.'])->withInput();
-        }
-
-        // préparer les données d'insertion (inclure id_demande si pertinent)
-        $data = [
-            'id_users' => $userId,
-            'message' => $request->message,
-            'date_notification' => now(),
-        ];
-        if ($demande) {
-            $data['id_demande'] = $demande->id;
-        } elseif ($request->filled('demande_id')) {
-            $data['id_demande'] = $request->input('demande_id');
-        }
-
-        // créer la notification
-        UserNotification::create($data);
-
-        // mettre à jour le statut de la demande si on en a une
-        try {
-            if (isset($demande)) {
-                // ne tenter la mise à jour que si la colonne 'statut' existe
-                if (Schema::hasColumn('demandes', 'statut')) {
-                    $demande->update(['statut' => 'attestation prête']);
-                } else {
-                    Log::warning("Impossible de mettre à jour 'statut' : colonne absente (demande id={$demande->id}).");
-                }
-            } elseif (! empty($data['id_demande'])) {
-                $d = Demande::find($data['id_demande']);
-                if ($d) {
-                    if (Schema::hasColumn('demandes', 'statut')) {
-                        $d->update(['statut' => 'attestation prête']);
-                    } else {
-                        Log::warning("Impossible de mettre à jour 'statut' : colonne absente (demande id={$d->id}).");
-                    }
-                }
-            }
-        } catch (\Exception $e) {
-            // éviter de faire planter l'utilisateur pour une opération non critique
-            Log::error("Erreur lors de la mise à jour du statut de la demande : " . $e->getMessage());
-        }
-
-        return redirect()->route('notifications.index')->with('success', 'Notification envoyée au demandeur.');
-    }
-
+    return redirect()->route('notifications.index')
+                     ->with('success', 'Notification envoyée au demandeur.');
+}
     public function destroy($id)
     {
         UserNotification::findOrFail($id)->delete();

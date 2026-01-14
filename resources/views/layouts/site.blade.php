@@ -29,9 +29,15 @@
 </div>
         <h1 style="position: absolute; left: 120px;">DSACEPD</h1>
         <nav>
+            
             <a href="{{ route('welcome') }}">Accueil</a>
+            <a href="{{ route('contact.form') }}">Contact</a>
+            <a href="{{ route('a-propos') }}">À propos</a>
+           
+            @guest
             <a href="{{ route('register') }}">Créer un compte</a>
             <a href="{{ route('login') }}">Se connecter</a>
+            @endguest
         
         </nav>
 
@@ -42,7 +48,11 @@
                     @csrf
                     <button type="submit">Se déconnecter</button>
                 </form>
+
             @endauth
+            
+
+        </div>
     </header>
 
     <main>
@@ -79,6 +89,8 @@
             <h4>Navigation</h4>
             <nav>
                 <a href="{{ route('welcome') }}">Accueil</a> |
+                <a href="{{ route('contact.form') }}">Contact</a> |
+                <a href="{{ route('a-propos') }}">À propos</a> |
                 <a href="{{ route('register') }}">Créer un compte</a> |
                 <a href="{{ route('login') }}">Se connecter</a>
             </nav>

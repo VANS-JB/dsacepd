@@ -32,12 +32,14 @@ class InfoAttestation extends Model
      */
     protected $fillable = [
         'nom_complet',
+        'sexe',
         'date_naissance',
         'lieu_naissance',
         'ecole',
         'numero_table',
         'session',
         'centre',
+        'anonymat',
         'numero_registre',
         'id_demande',
     ];

@@ -10,6 +10,11 @@ use App\Http\Controllers\Admin\ReclamationController;
 use App\Http\Controllers\Admin\AttestationController;
 use App\Http\Controllers\Admin\NotificationController;
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\ContactController;
+use App\Http\Controllers\Demandeur\NotificationController as DemandeurNotificationController;
+
+
+
 
 
 
@@ -51,6 +56,13 @@ Route::post('/register', [DemandeurAuthController::class, 'register'])->name('re
 
 // Connexion demandeur
 Route::post('/demandeur/login', [DemandeurAuthController::class, 'login'])->name('demandeur.login');
+
+// Déconnexion demandeur
+Route::post('/demandeur/logout', [DemandeurAuthController::class, 'logout'])->name('demandeur.logout');
+
+Route::get('/confidentialite', function () {
+    return view('auth.confidentialite');
+})->name('confidentialite');
 
 // Site de demande (après connexion)
 Route::get('/', function () {
@@ -136,28 +148,20 @@ Route::middleware('auth')->group(function () {
 });
 
 
-
-
-// Routes accessibles aux admins/agents
-// Route::middleware('auth')->group(function () {
-//     // Liste des notifications
-//     Route::get('/notifications', [NotificationController::class, 'index'])->name('notifications.index');
-
-//     // Formulaire pour envoyer une notification liée à une demande
-//     Route::get('/notifications/{demandeId}/create', [NotificationController::class, 'create'])->name('notifications.create');
-
-//     // Enregistrement de la notification
-//     Route::post('/notifications/{demandeId}', [NotificationController::class, 'store'])->name('notifications.store');
-
-//     // Suppression d’une notification (optionnel)
-//     Route::delete('/notifications/{id}', [NotificationController::class, 'destroy'])->name('notifications.destroy');
-// });
-
-
-
 Route::middleware('auth')->group(function () {
     Route::get('/notifications', [NotificationController::class, 'index'])->name('notifications.index');
     Route::get('/notifications/{demandeId}/create', [NotificationController::class, 'create'])->name('notifications.create');
     Route::post('/notifications/{demandeId}', [NotificationController::class, 'store'])->name('notifications.store');
     Route::delete('/notifications/{id}', [NotificationController::class, 'destroy'])->name('notifications.destroy');
 });
+
+Route::get('/contact.form', [ContactController::class, 'showForm'])->name('contact.form');
+Route::post('/contact', [ContactController::class, 'send'])->name('contact.send');
+
+Route::middleware('auth')->group(function () {
+    Route::get('/contact', [ContactController::class, 'index'])->name('contact.index');
+});
+
+Route::view('/a-propos', 'a-propos')->name('a-propos');
+
+

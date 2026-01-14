@@ -25,6 +25,7 @@ class AttestationController extends Controller
     {
         $request->validate([
             'id_demande' => 'required|exists:demandes,id',
+            'sexe' => 'required|string',
             'nom_complet' => 'required|string',
             'date_naissance' => 'required|date',
             'lieu_naissance' => 'required|string',
@@ -32,10 +33,28 @@ class AttestationController extends Controller
             'numero_table' => 'required|integer',
             'session' => 'required|string',
             'centre' => 'required|string',
+            'anonymat' => 'required|string',
             'numero_registre' => 'required|string',
         ]);
 
-        InfoAttestation::create($request->all());
+        $attestation = InfoAttestation::create($request->only([
+            'id_demande',
+            'nom_complet',
+            'sexe',
+            'date_naissance',
+            'lieu_naissance',
+            'ecole',
+            'numero_table',
+            'session',
+            'centre',
+            'anonymat',
+            'numero_registre',
+        ]));
+
+        // ✅ Mise à jour du statut de la demande liée
+        $demande = Demande::findOrFail($request->id_demande);
+        $demande->statut = 'validé';
+        $demande->save();
 
         return redirect()->route('attestations.index')->with('success', 'Attestation créée avec succès.');
     }
