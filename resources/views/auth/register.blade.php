@@ -34,7 +34,7 @@
          <div>
         <input type="checkbox" name="confidentialite" id="confidentialite" required>
         <label for="confidentialite">
-            J’accepte la <a href="{{ route('confidentialite') }}" target="_blank">politique de confidentialité</a>
+            J’accepte la <a href="{{ route('confidentialites') }}" target="_blank">politique de confidentialité</a>
         </label>
         </div>
 

@@ -3,58 +3,162 @@
 @section('title', 'À propos')
 
 @section('content')
-<div class="about-page">
-    <h1>À propos</h1>
+<div class="about-container">
 
-    <section class="intro">
-        <p>
-            Bienvenue sur notre plateforme. Notre mission est de moderniser les services administratifs 
-            et de faciliter l’accès aux démarches pour tous les citoyens.
-        </p>
-    </section>
+    <h1>À propos de la plateforme DSACEPD</h1>
 
-    <section class="vision">
-        <h2>Notre vision</h2>
-        <p>
-            Nous croyons en une administration transparente, inclusive et efficace. 
-            Grâce au numérique, nous voulons réduire les barrières et améliorer l’expérience des utilisateurs.
-        </p>
-    </section>
+    <p class="about-intro">
+        La plateforme officielle des attestations DSACEPD est un service numérique
+        conçu pour faciliter l’accès aux attestations du Certificat d’Études
+        Primaires et Élémentaires (CEPD), en toute sécurité et transparence.
+    </p>
 
-    <section class="team">
-        <h2>Notre équipe</h2>
+    <div class="about-section">
+        <h2> Notre mission</h2>
         <p>
-            Une équipe passionnée de développeurs, designers et responsables projets, 
-            engagés pour l’innovation sociale et la transformation digitale au Togo.
+            Notre mission est de simplifier les démarches administratives liées
+            aux attestations CEPD en offrant une solution en ligne rapide,
+            fiable et accessible à tous, sans déplacement inutile.
         </p>
-    </section>
+    </div>
 
-    <section class="contact">
-        <h2>Nous contacter</h2>
+    <div class="about-section">
+        <h2> Notre vision</h2>
         <p>
-            Pour toute question ou suggestion, rendez-vous sur la page <a href="{{ route('contact.form') }}">Contact</a>.
+            Nous aspirons à une administration éducative moderne, digitale et
+            efficace, mettant la technologie au service des citoyens et de
+            l’amélioration continue des services publics.
         </p>
-    </section>
+    </div>
+
+    <div class="about-section">
+        <h2> Fonctionnalités principales</h2>
+        <ul>
+            <li>Demande d’attestation CEPD en ligne</li>
+            <li>Suivi en temps réel de l’état des demandes</li>
+            <li>Réduction des délais de traitement</li>
+            <li>Sécurisation des données personnelles</li>
+            <li>Accès simple via ordinateur ou smartphone</li>
+        </ul>
+    </div>
+
+    <div class="about-section">
+        <h2> Pourquoi choisir notre plateforme ?</h2>
+        <p>
+            Grâce à une interface intuitive et un processus automatisé,
+            la plateforme DSACEPD permet aux usagers de gagner du temps,
+            d’éviter les files d’attente et d’obtenir des informations
+            claires à chaque étape de leur demande.
+        </p>
+    </div>
+
 </div>
 @endsection
 
 <style>
-.about-page {
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 40px;
-    font-family: Arial, sans-serif;
-    line-height: 1.6;
+
+    .about-container {
+    max-width: 900px;
+    margin: 60px auto;
+    background: linear-gradient(180deg, #ffffff, #f9fbff);
+    padding: 55px 60px;
+    border-radius: 18px;
+    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.08);
+    font-family: "Segoe UI", Tahoma, sans-serif;
+    animation: fadeIn 0.8s ease-in-out;
 }
-.about-page h1 {
+
+/* Animation douce */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(15px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Titre principal */
+.about-container h1 {
     text-align: center;
+    color: #1f2d3d;
     margin-bottom: 30px;
+    font-size: 30px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
 }
-.about-page h2 {
-    margin-top: 20px;
-    color: #2c3e50;
+
+/* Introduction */
+.about-intro {
+    text-align: center;
+    color: #555;
+    font-size: 17px;
+    line-height: 1.9;
+    margin-bottom: 45px;
+    max-width: 750px;
+    margin-left: auto;
+    margin-right: auto;
 }
-.about-page p {
-    margin-bottom: 15px;
+
+/* Sections */
+.about-section {
+    background: #ffffff;
+    border-radius: 14px;
+    padding: 28px 30px;
+    margin-bottom: 30px;
+    border-left: 6px solid #007BFF;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+    transition: transform 0.3s, box-shadow 0.3s;
 }
+
+.about-section:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 14px 30px rgba(0,0,0,0.08);
+}
+
+/* Titres des sections */
+.about-section h2 {
+    color: #007BFF;
+    margin-bottom: 12px;
+    font-size: 21px;
+    font-weight: 600;
+}
+
+/* Texte */
+.about-section p {
+    color: #444;
+    line-height: 1.9;
+    font-size: 15.5px;
+}
+
+/* Liste */
+.about-section ul {
+    padding-left: 22px;
+    margin-top: 10px;
+}
+
+.about-section ul li {
+    margin-bottom: 12px;
+    color: #444;
+    font-size: 15px;
+    position: relative;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .about-container {
+        padding: 35px 25px;
+    }
+
+    .about-container h1 {
+        font-size: 24px;
+    }
+
+    .about-intro {
+        font-size: 16px;
+    }
+}
+
 </style>

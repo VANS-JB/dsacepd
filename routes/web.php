@@ -164,4 +164,6 @@ Route::middleware('auth')->group(function () {
 
 Route::view('/a-propos', 'a-propos')->name('a-propos');
 
+Route::view('/confidentialites', 'confidentialites')->name('confidentialites');
+
 

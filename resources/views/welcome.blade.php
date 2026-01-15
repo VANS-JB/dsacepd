@@ -5,7 +5,7 @@
 @section('content')
 
    
-    <h1>Bienvenue sur la plateforme officielle des attestations CEPD</h1>
+    <h1>Bienvenue sur la plateforme officielle de demande d'attestations de CEPD</h1>
     
     <div class="services">
         <div class="service-box">
