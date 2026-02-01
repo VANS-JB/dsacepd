@@ -105,12 +105,11 @@ function closeModal() {
 }
 
 .modal {
-    display: none;
+    display: none;              /* INVISIBLE PAR DÉFAUT */
     position: fixed;
     inset: 0;
     background: rgba(0,0,0,0.6);
     z-index: 9999;
-    display: flex;
     justify-content: center;
     align-items: center;
 }

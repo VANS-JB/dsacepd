@@ -54,7 +54,7 @@
 body {
     min-height: 100vh;
     margin: 0;
-    background: linear-gradient(135deg, #1f6bff, #6fa8ff);
+    background: linear-gradient(135deg, #1e40af, #60a5fa);
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -103,7 +103,7 @@ form input {
 
 form input:focus {
     outline: none;
-    border-color: #1f6bff;
+    border-color: linear-gradient(135deg, #1e40af, #1e3a8a);
     background: #ffffff;
     box-shadow: 0 0 0 4px rgba(31,107,255,0.18);
 }
@@ -115,7 +115,7 @@ form button {
     padding: 14px;
     border: none;
     border-radius: 14px;
-    background: linear-gradient(135deg, #1f6bff, #3b82f6);
+    background: linear-gradient(135deg, #1e40af, #1e3a8a);
     color: #ffffff;
     font-size: 15px;
     font-weight: 600;

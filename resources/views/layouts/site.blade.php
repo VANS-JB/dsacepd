@@ -6,54 +6,50 @@
     <link rel="stylesheet" href="{{ asset('css/site.css') }}">
 </head>
 <body>
-    <header>
-        <div><svg width="50" height="50" viewBox="0 0 200 200"
-     xmlns="http://www.w3.org/2000/svg">
+   <header>
 
-    <!-- Fond bleu avec coins arrondis -->
-    <rect x="0" y="0" width="200" height="200" rx="40" ry="40"
-          fill="#2563EB"/>
+    <!-- GAUCHE : logo + nom -->
+    <div class="brand">
+        <svg width="42" height="42" viewBox="0 0 200 200"
+             xmlns="http://www.w3.org/2000/svg">
+            <rect x="0" y="0" width="200" height="200" rx="40" ry="40"
+                  fill="#2563EB"/>
+            <polygon points="100,45 35,80 100,115 165,80"
+                     fill="#FFFFFF"/>
+            <path d="M60 95 v30 c0 15 80 15 80 0 v-30 l-40 20 z"
+                  fill="#FFFFFF"/>
+            <rect x="160" y="80" width="8" height="45"
+                  fill="#FFFFFF"/>
+        </svg>
 
-    <!-- Chapeau de diplômé -->
-    <polygon points="100,45 35,80 100,115 165,80"
-             fill="#FFFFFF"/>
+        <h1>DSACEPD</h1>
+    </div>
 
-    <!-- Base du chapeau -->
-    <path d="M60 95 v30 c0 15 80 15 80 0 v-30 l-40 20 z"
-          fill="#FFFFFF"/>
+    <!-- CENTRE : navigation -->
+    <nav class="main-nav">
+        <a href="{{ route('welcome') }}">Accueil</a>
+        <a href="{{ route('contact.form') }}">Contact</a>
+        <a href="{{ route('a-propos') }}">À propos</a>
+    </nav>
 
-    <!-- Pampille -->
-    <rect x="160" y="80" width="8" height="45"
-          fill="#FFFFFF"/>
-</svg>
-</div>
-        <h1 style="position: absolute; left: 120px;">DSACEPD</h1>
-        <nav>
-            
-            <a href="{{ route('welcome') }}">Accueil</a>
-            <a href="{{ route('contact.form') }}">Contact</a>
-            <a href="{{ route('a-propos') }}">À propos</a>
-           
-            @guest
-            <a href="{{ route('register') }}">Créer un compte</a>
-            <a href="{{ route('login') }}">Se connecter</a>
-            @endguest
-        
-        </nav>
+    <!-- DROITE : auth / user -->
+    <div class="right-nav">
+        @guest
+            <a class="btn-register" href="{{ route('register') }}">Créer un compte</a>
+            <a class="btn-login" href="{{ route('login') }}">Se connecter</a>
+        @endguest
 
-        <div class="user-info">
-            @auth
-              
-                <form method="POST" action="{{ route('logout') }}">
-                    @csrf
-                    <button type="submit">Se déconnecter</button>
-                </form>
+        @auth
+           <form method="POST" action="{{ route('logout') }}">
+    @csrf
+    <button type="submit" class="btn-logout">Se déconnecter</button>
+</form>
 
-            @endauth
-            
+        @endauth
+    </div>
 
-        </div>
-    </header>
+</header>
+
 
     <main>
         @yield('content')
@@ -98,14 +94,14 @@
 
         <div class="footer-section">
             <h4>Contact</h4>
-            <p>Email : support@dsa-cepd.tg</p>
+            <p>Email : support@dsacepd.tg</p>
             <p>Téléphone : +228 92 77 76 21</p>
             <p>Adresse : Direction Régionale de l’Éducation, Lomé</p>
         </div>
     </div>
 
     <div class="footer-bottom">
-        <p>&copy; 2025 DSA‑CEPD. Tous droits réservés.</p>
+        <p>&copy; 2025 DSACEPD. Tous droits réservés.</p>
     </div>
 </footer>
     

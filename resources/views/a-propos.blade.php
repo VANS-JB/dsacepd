@@ -57,7 +57,7 @@
 
 <style>
 
-    .about-container {
+   .about-container {
     max-width: 900px;
     margin: 60px auto;
     background: linear-gradient(180deg, #ffffff, #f9fbff);
@@ -83,7 +83,7 @@
 /* Titre principal */
 .about-container h1 {
     text-align: center;
-    color: #1f2d3d;
+    color: #1e40af;
     margin-bottom: 30px;
     font-size: 30px;
     font-weight: 700;
@@ -108,7 +108,7 @@
     border-radius: 14px;
     padding: 28px 30px;
     margin-bottom: 30px;
-    border-left: 6px solid #007BFF;
+    border-left: 6px solid #1e40af;
     box-shadow: 0 8px 20px rgba(0,0,0,0.05);
     transition: transform 0.3s, box-shadow 0.3s;
 }
@@ -120,7 +120,7 @@
 
 /* Titres des sections */
 .about-section h2 {
-    color: #007BFF;
+    color: #1e40af;
     margin-bottom: 12px;
     font-size: 21px;
     font-weight: 600;
@@ -143,7 +143,6 @@
     margin-bottom: 12px;
     color: #444;
     font-size: 15px;
-    position: relative;
 }
 
 /* Responsive */

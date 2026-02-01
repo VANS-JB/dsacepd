@@ -23,7 +23,7 @@
 .main-content h1 {
     font-size: 26px;
     font-weight: 700;
-    color: #1f6bff;
+    color: linear-gradient(135deg, #1e40af, #1e3a8a);
     margin-bottom: 25px;
 }
 
@@ -44,7 +44,7 @@
 }
 
 .main-content form p strong {
-    color: #1f6bff;
+    color: linear-gradient(135deg, #1e40af, #1e3a8a);
 }
 
 /* LABEL */
@@ -72,7 +72,7 @@
 /* FOCUS */
 .main-content form textarea:focus {
     outline: none;
-    border-color: #1f6bff;
+    border-color: linear-gradient(135deg, #1e40af, #1e3a8a);
     background: #ffffff;
     box-shadow: 0 0 0 3px rgba(31,107,255,0.15);
 }
@@ -83,7 +83,7 @@
     padding: 14px;
     border: none;
     border-radius: 12px;
-    background: linear-gradient(135deg, #1f6bff, #3b82f6);
+    background: linear-gradient(135deg, #1e40af, #1e3a8a);
     color: #ffffff;
     font-size: 15px;
     font-weight: 600;

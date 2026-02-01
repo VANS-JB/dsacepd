@@ -3,6 +3,7 @@
 @section('title', 'Faire une réclamation')
 
 @section('content')
+<div class="reclamation-page">
     <h1>Faire une réclamation</h1>
 
     @if ($errors->any())
@@ -26,26 +27,27 @@
 
         <button type="submit">Envoyer la réclamation</button>
     </form>
+</div>
 @endsection
 
 <style>
 /* ================= FORMULAIRE RECLAMATION ================= */
-* {
-    box-sizing: border-box;
-    font-family: "Segoe UI", Tahoma, sans-serif;
+
+.reclamation-page {
+    padding: 30px 20px;
 }
 
 /* TITRE */
-h1 {
+.reclamation-page h1 {
     text-align: center;
     font-size: 28px;
-    color: #1f6bff;
+    color: linear-gradient(135deg, #1e40af, #1e3a8a);
     font-weight: 700;
     margin-bottom: 30px;
 }
 
 /* ERREURS */
-div[style*="color:red"] {
+.reclamation-page div[style*="color:red"] {
     max-width: 500px;
     margin: 0 auto 20px;
     padding: 14px 20px;
@@ -55,13 +57,13 @@ div[style*="color:red"] {
     font-weight: 600;
 }
 
-div ul {
+.reclamation-page ul {
     margin: 0;
     padding-left: 20px;
 }
 
 /* FORMULAIRE */
-form {
+.reclamation-page form {
     width: 100%;
     max-width: 500px;
     margin: 0 auto;
@@ -73,7 +75,7 @@ form {
 }
 
 /* LABELS */
-form label {
+.reclamation-page label {
     display: block;
     margin-bottom: 6px;
     font-size: 14px;
@@ -81,9 +83,9 @@ form label {
     color: #4b5563;
 }
 
-/* INPUTS ET TEXTAREA */
-form input,
-form textarea {
+/* INPUTS & TEXTAREA */
+.reclamation-page input,
+.reclamation-page textarea {
     width: 100%;
     padding: 14px 16px;
     margin-bottom: 20px;
@@ -95,22 +97,22 @@ form textarea {
     resize: vertical;
 }
 
-form input:focus,
-form textarea:focus {
+.reclamation-page input:focus,
+.reclamation-page textarea:focus {
     outline: none;
-    border-color: #1f6bff;
+    border-color: linear-gradient(135deg, #1e40af, #1e3a8a);
     background: #ffffff;
     box-shadow: 0 0 0 4px rgba(31,107,255,0.18);
 }
 
 /* BOUTON */
-form button {
+.reclamation-page button {
     width: 100%;
     margin-top: 10px;
     padding: 14px;
     border: none;
     border-radius: 14px;
-    background: linear-gradient(135deg, #1f6bff, #3b82f6);
+    background: linear-gradient(135deg, #1e40af, #1e3a8a);
     color: #ffffff;
     font-size: 15px;
     font-weight: 600;
@@ -118,7 +120,7 @@ form button {
     transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-form button:hover {
+.reclamation-page button:hover {
     transform: translateY(-2px);
     box-shadow: 0 18px 40px rgba(31,107,255,0.4);
 }
@@ -134,6 +136,7 @@ form button:hover {
         transform: translateY(0);
     }
 }
+
 </style>
 
 

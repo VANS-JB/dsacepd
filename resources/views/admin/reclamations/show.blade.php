@@ -20,7 +20,7 @@
 .main-content h1 {
     font-size: 26px;
     font-weight: 700;
-    color: #1f6bff;
+    color: linear-gradient(135deg, #1e40af, #1e3a8a);
     margin-bottom: 25px;
 }
 
@@ -52,7 +52,7 @@
     display: inline-block;
     margin-top: 25px;
     padding: 10px 18px;
-    background: #1f6bff;
+    background: linear-gradient(135deg, #1e40af, #1e3a8a);
     color: #ffffff;
     font-size: 14px;
     font-weight: 600;

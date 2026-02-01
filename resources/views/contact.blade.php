@@ -123,8 +123,8 @@
 
 .contact-form input:focus,
 .contact-form textarea:focus {
-    border-color: #007BFF;
-    box-shadow: 0 0 0 2px rgba(0,123,255,0.15);
+    border-color: #1e40af;
+    box-shadow: 0 0 0 2px rgba(30,64,175,0.15);
     outline: none;
 }
 
@@ -132,9 +132,9 @@
 .btn-submit {
     width: 100%;
     padding: 13px;
-    background-color: #007BFF;
+    background: linear-gradient(135deg, #1e40af, #1e3a8a);
     border: none;
-    color: #fff;
+    color: #ffffff;
     font-weight: bold;
     border-radius: 8px;
     cursor: pointer;
@@ -143,7 +143,7 @@
 }
 
 .btn-submit:hover {
-    background-color: #0056b3;
+    background-color: linear-gradient(135deg, #1e40af, #1e3a8a);
     transform: translateY(-1px);
 }
 

@@ -7,10 +7,10 @@
 
     <!-- Statistiques -->
     <div class="stats-grid" style="display:flex; gap:20px; margin-bottom:20px;">
-        <div class="stat-box">📋 Total des demandes : <strong>{{ $totalDemandes }}</strong></div>
-        <div class="stat-box">📄 Attestations générées : <strong>{{ $attestationsGenerees }}</strong></div>
-        <div class="stat-box">📬 Réclamations : <strong>{{ $totalReclamations }}</strong></div>
-        <div class="stat-box">🔔 Notifications envoyées : <strong>{{ $totalNotifications }}</strong></div>
+        <div class="stat-box"> Total des demandes : <strong>{{ $totalDemandes }}</strong></div>
+        <div class="stat-box"> Attestations générées : <strong>{{ $attestationsGenerees }}</strong></div>
+        <div class="stat-box"> Réclamations : <strong>{{ $totalReclamations }}</strong></div>
+        <div class="stat-box"> Notifications envoyées : <strong>{{ $totalNotifications }}</strong></div>
     </div>
 
     <hr>
@@ -56,7 +56,11 @@
 
 
 
-                    <td>{{ ucfirst($demande->statut ?? 'en attente') }}</td>
+                    <td>
+                        <span class="status-badge status-{{ $demande->statut ?? 'en_attente' }}">
+                            {{ ucfirst($demande->statut ?? 'en attente') }}
+                        </span>
+                    </td>
                     <td>{{ optional($demande->created_at)->format('Y-m-d H:i') ?? '' }}</td>
                 </tr>
             @empty
@@ -95,14 +99,14 @@ function closeLightbox() {
 /* TITRES */
 .main-content h1 {
     font-size: 28px;
-    color: #1f6bff;
+    color: linear-gradient(135deg, #1e40af, #1e3a8a);
     margin-bottom: 25px;
     font-weight: 700;
 }
 
 .main-content h2 {
     font-size: 22px;
-    color: #1f6bff;
+    color: linear-gradient(135deg, #1e40af, #1e3a8a);
     margin: 30px 0 20px;
     font-weight: 600;
 }
@@ -131,7 +135,7 @@ function closeLightbox() {
     display: block;
     margin-top: 8px;
     font-size: 22px;
-    color: #1f6bff;
+    color: linear-gradient(135deg, #1e40af, #1e3a8a);
 }
 
 .stat-box:hover {
@@ -152,36 +156,53 @@ hr {
     width: 100%;
     border-collapse: collapse;
     background: #ffffff;
-    border-radius: 14px;
+    border-radius: 16px;
     overflow: hidden;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.1);
     margin-bottom: 20px;
+    border: 1px solid #e5e7eb;
 }
 
 .main-content thead {
-    background: linear-gradient(135deg, #1f6bff, #3b82f6);
+    background: linear-gradient(135deg, #1e40af, #1e3a8a);
     color: #ffffff;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
 }
 
 .main-content th {
-    padding: 14px 16px;
-    font-size: 14px;
+    padding: 18px 20px;
+    font-size: 13px;
     text-align: left;
-    font-weight: 600;
+    font-weight: 700;
+    letter-spacing: 0.3px;
+    vertical-align: middle;
 }
 
 .main-content td {
-    padding: 13px 16px;
+    padding: 16px 20px;
     font-size: 14px;
-    border-bottom: 1px solid #e5e7eb;
+    border-bottom: 1px solid #f0f1f3;
+    vertical-align: middle;
+    color: #374151;
+    transition: background 0.2s ease;
+}
+
+.main-content tbody tr {
+    transition: all 0.3s ease;
 }
 
 .main-content tbody tr:hover {
-    background: #f3f4f6;
+    background: linear-gradient(90deg, rgba(30,64,175,0.04), rgba(30,58,138,0.04));
+    box-shadow: 0 4px 12px rgba(30,64,175,0.1) inset;
 }
 
 .main-content tbody tr:last-child td {
     border-bottom: none;
+}
+
+.main-content tbody tr:nth-child(even) {
+    background: #fafbfc;
 }
 
 /* ================= PAGINATION LARAVEL ================= */
@@ -204,14 +225,92 @@ hr {
     border: 1px solid #e5e7eb;
     text-decoration: none;
     font-size: 14px;
-    color: #1f6bff;
+    color: linear-gradient(135deg, #1e40af, #1e3a8a);
     font-weight: 500;
 }
 
 .pagination .active span {
-    background: #1f6bff;
+    background: linear-gradient(135deg, #1e40af, #1e3a8a);
     color: #ffffff;
-    border-color: #1f6bff;
+    border-color: linear-gradient(135deg, #1e40af, #1e3a8a);
+}
+
+/* ================= STATUT BADGES ================= */
+.status-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    min-width: 120px;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+/* En attente */
+.status-en_attente {
+    background: linear-gradient(135deg, #fef3c7, #fde68a);
+    color: #92400e;
+    border: 1px solid #fcd34d;
+}
+
+.status-en_attente:hover {
+    box-shadow: 0 4px 12px rgba(146,64,14,0.2);
+    transform: translateY(-2px);
+}
+
+/* Validée */
+.status-validee {
+    background: linear-gradient(135deg, #dcfce7, #bbf7d0);
+    color: #15803d;
+    border: 1px solid #86efac;
+}
+
+.status-validee:hover {
+    box-shadow: 0 4px 12px rgba(21,128,61,0.2);
+    transform: translateY(-2px);
+}
+
+/* En traitement */
+.status-en_traitement,
+.status-traitement {
+    background: linear-gradient(135deg, #dbeafe, #bfdbfe);
+    color: #1e40af;
+    border: 1px solid #93c5fd;
+}
+
+.status-en_traitement:hover,
+.status-traitement:hover {
+    box-shadow: 0 4px 12px rgba(30,64,175,0.2);
+    transform: translateY(-2px);
+}
+
+/* Rejetée */
+.status-rejetee {
+    background: linear-gradient(135deg, #fee2e2, #fecaca);
+    color: #b91c1c;
+    border: 1px solid #fca5a5;
+}
+
+.status-rejetee:hover {
+    box-shadow: 0 4px 12px rgba(185,28,28,0.2);
+    transform: translateY(-2px);
+}
+
+/* Approuvée */
+.status-approuvee {
+    background: linear-gradient(135deg, #d1fae5, #a7f3d0);
+    color: #065f46;
+    border: 1px solid #6ee7b7;
+}
+
+.status-approuvee:hover {
+    box-shadow: 0 4px 12px rgba(6,95,70,0.2);
+    transform: translateY(-2px);
 }
 
 

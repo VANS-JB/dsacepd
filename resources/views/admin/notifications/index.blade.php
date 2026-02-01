@@ -26,7 +26,12 @@
                 <td>{{ $notif->user->name }}</td>
                 <td>{{ $notif->message }}</td>
                 <td>{{ $notif->date_notification->format('d/m/Y H:i') }}</td>
-                <td>{{ $notif->demande->id }} ({{ $notif->demande->statut }})</td>
+                <td>
+                    {{ $notif->demande->id }}
+                    <span class="status-badge status-{{ $notif->demande->statut ?? 'en_attente' }}">
+                        {{ ucfirst($notif->demande->statut ?? 'en attente') }}
+                    </span>
+                </td>
                 <td>
                     <form action="{{ route('notifications.destroy', $notif->id) }}" method="POST" style="display:inline;">
                         @csrf @method('DELETE')
@@ -50,7 +55,7 @@
 .main-content h1 {
     font-size: 26px;
     font-weight: 700;
-    color: #1f6bff;
+    color: linear-gradient(135deg, #1e40af, #1e3a8a);
     margin-bottom: 25px;
 }
 
@@ -70,70 +75,158 @@
     width: 100%;
     border-collapse: collapse;
     background: #ffffff;
-    border-radius: 14px;
+    border-radius: 16px;
     overflow: hidden;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+    border: 1px solid #e5e7eb;
 }
 
 /* EN-TÊTE */
 .main-content thead {
-    background: #1f6bff;
+    background: linear-gradient(135deg, #1e40af, #1e3a8a);
     color: #ffffff;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
 }
 
 .main-content th {
-    padding: 14px;
-    font-size: 14px;
-    font-weight: 600;
+    padding: 18px 20px;
+    font-size: 13px;
+    font-weight: 700;
     text-align: left;
+    letter-spacing: 0.3px;
+    vertical-align: middle;
 }
 
 /* CELLULES */
 .main-content td {
-    padding: 12px 14px;
+    padding: 16px 20px;
     font-size: 14px;
     color: #374151;
-    border-bottom: 1px solid #e5e7eb;
-    vertical-align: top;
+    border-bottom: 1px solid #f0f1f3;
+    vertical-align: middle;
+    transition: background 0.2s ease;
 }
 
-/* Message long */
-.main-content td:nth-child(3) {
-    max-width: 350px;
-    line-height: 1.5;
+.main-content tbody tr {
+    transition: all 0.3s ease;
 }
 
-/* Hover */
 .main-content tbody tr:hover {
-    background: #f1f5ff;
+    background: linear-gradient(90deg, rgba(30,64,175,0.04), rgba(30,58,138,0.04));
+    box-shadow: 0 4px 12px rgba(30,64,175,0.1) inset;
+}
+
+.main-content tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.main-content tbody tr:nth-child(even) {
+    background: #fafbfc;
 }
 
 /* ================= ACTIONS ================= */
 
+.main-content td:last-child {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
 .main-content td form button {
-    background: #fee2e2;
+    background: linear-gradient(135deg, #fee2e2, #fecaca);
     color: #dc2626;
     border: none;
-    padding: 6px 12px;
+    padding: 8px 14px;
     border-radius: 8px;
     font-size: 13px;
     font-weight: 600;
     cursor: pointer;
-    transition: background 0.2s ease, transform 0.2s ease;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+    min-height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .main-content td form button:hover {
-     background: #fecaca;
-    transform: translateY(-1px);
+    background: linear-gradient(135deg, #fecaca, #fca5a5);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(220,38,38,0.2);
 }
 
 /* BADGE STATUT DEMANDE */
 .main-content td:nth-child(5) {
-    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 8px;
 }
 
-.main-content td:nth-child(5)::before {
-    content: "📄 ";
+/* ================= STATUT BADGES ================= */
+.status-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 6px 12px;
+    border-radius: 16px;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+    min-width: 100px;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+/* En attente */
+.status-en_attente {
+    background: linear-gradient(135deg, #fef3c7, #fde68a);
+    color: #92400e;
+    border: 1px solid #fcd34d;
+}
+
+.status-en_attente:hover {
+    box-shadow: 0 4px 12px rgba(146,64,14,0.2);
+    transform: translateY(-2px);
+}
+
+/* Validée */
+.status-validee {
+    background: linear-gradient(135deg, #dcfce7, #bbf7d0);
+    color: #15803d;
+    border: 1px solid #86efac;
+}
+
+.status-validee:hover {
+    box-shadow: 0 4px 12px rgba(21,128,61,0.2);
+    transform: translateY(-2px);
+}
+
+/* Rejetée */
+.status-rejetee {
+    background: linear-gradient(135deg, #fee2e2, #fecaca);
+    color: #b91c1c;
+    border: 1px solid #fca5a5;
+}
+
+.status-rejetee:hover {
+    box-shadow: 0 4px 12px rgba(185,28,28,0.2);
+    transform: translateY(-2px);
+}
+
+/* En traitement */
+.status-en_traitement,
+.status-traitement {
+    background: linear-gradient(135deg, #dbeafe, #bfdbfe);
+    color: #1e40af;
+    border: 1px solid #93c5fd;
+}
+
+.status-en_traitement:hover,
+.status-traitement:hover {
+    box-shadow: 0 4px 12px rgba(30,64,175,0.2);
+    transform: translateY(-2px);
 }
 
 /* PAGINATION */
@@ -158,7 +251,7 @@
 }
 
 .pagination .active span {
-    background: #1f6bff;
+    background: linear-gradient(135deg, #1e40af, #1e3a8a);
     color: #ffffff;
 }
 

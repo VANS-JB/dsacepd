@@ -105,7 +105,7 @@
 .container h1 {
     font-size: 26px;
     font-weight: 700;
-    color: #1f6bff;
+    color: linear-gradient(135deg, #1e40af, #1e3a8a);
     margin-bottom: 15px;
 }
 
@@ -156,7 +156,7 @@
 .container input:focus,
 .container select:focus {
     outline: none;
-    border-color: #1f6bff;
+    border-color: linear-gradient(135deg, #1e40af, #1e3a8a);
     box-shadow: 0 0 0 3px rgba(31,107,255,0.15);
 }
 
@@ -165,7 +165,7 @@
     width: 100%;
     padding: 14px;
     margin-top: 20px;
-    background: linear-gradient(135deg, #1f6bff, #3b82f6);
+    background: linear-gradient(135deg, #1e40af, #1e3a8a);
     border: none;
     border-radius: 12px;
     font-weight: 600;
@@ -184,7 +184,7 @@
 }
 
 .container a:hover {
-    color: #1f6bff;
+    color: linear-gradient(135deg, #1e40af, #1e3a8a);
 }
 
 /* RESPONSIVE */

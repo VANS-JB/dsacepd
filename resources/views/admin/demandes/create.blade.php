@@ -83,105 +83,117 @@
 
 <style>
 
-    /* ================= FORM DEMANDE + ATTESTATION ================= */
+    :root {
+    --admin-blue: #1f3a5f;
+    --admin-blue-dark: #162b46;
+    --admin-blue-light: #e6edf5;
+    --border-light: #e5e7eb;
+    --text-main: #111827;
+    --text-muted: #6b7280;
+}
+
+
+   /* ================= FORM DEMANDE + ATTESTATION ================= */
 
 .main-content {
     padding: 30px;
-    overflow-x: hidden; /* empêche tout débordement horizontal */
 }
 
 /* TITRE */
 .main-content h1 {
-    font-size: 26px;
-    font-weight: 700;
-    color: #1f6bff;
+    font-size: 22px;
+    font-weight: 600;
+    color: var(--text-main);
     margin-bottom: 25px;
 }
 
-/* FORMULAIRE */
-.main-content form {
-    max-width: 700px;      /* largeur contrôlée */
-    width: 100%;
-    background: #ffffff;
-    padding: 30px;
-    border-radius: 14px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.08);
-}
-
-/* LABELS */
-.main-content form label {
-    display: block;
-    font-size: 14px;
-    font-weight: 600;
-    color: #374151;
-    margin-bottom: 6px;
-}
-
-/* INPUTS / SELECT / FILE */
-.main-content form input,
-.main-content form select,
-.main-content form textarea {
-    width: 100%;
-    padding: 12px 14px;
-    font-size: 14px;
-    border-radius: 10px;
-    border: 1px solid #d1d5db;
-    background: #f9fafb;
-    margin-bottom: 18px;
-}
-
-/* FOCUS */
-.main-content form input:focus,
-.main-content form select:focus,
-.main-content form textarea:focus {
-    outline: none;
-    border-color: #1f6bff;
-    background: #ffffff;
-    box-shadow: 0 0 0 3px rgba(31,107,255,0.15);
-}
-
-/* INPUT FILE */
-.main-content input[type="file"] {
-    padding: 10px;
-    background: #ffffff;
-}
-
-/* ERREURS */
-.main-content div[style*="color:red"] ul {
+/* ================= ERREURS ================= */
+.main-content div[style*="color:red"] {
     background: #fff1f2;
-    padding: 15px;
-    border-radius: 10px;
+    border: 1px solid #fecdd3;
+    padding: 14px 18px;
+    border-radius: 8px;
     margin-bottom: 20px;
 }
 
 .main-content div[style*="color:red"] li {
     font-size: 13px;
-    color: #be123c;
+    color: #9f1239;
 }
 
-/* BOUTON */
+/* ================= FORMULAIRE ================= */
+.main-content form {
+    max-width: 720px;
+    width: 100%;
+    background: #ffffff;
+    padding: 28px;
+    border-radius: 10px;
+    border: 1px solid var(--border-light);
+}
+
+/* LABELS */
+.main-content form label {
+    display: block;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-muted);
+    margin-bottom: 6px;
+}
+
+/* INPUTS / SELECT */
+.main-content form input,
+.main-content form select {
+    width: 100%;
+    padding: 10px 12px;
+    font-size: 14px;
+    border-radius: 6px;
+    border: 1px solid #d1d5db;
+    background: #ffffff;
+    margin-bottom: 18px;
+    color: var(--text-main);
+}
+
+/* FILE INPUT */
+.main-content form input[type="file"] {
+    padding: 8px;
+    background: #f9fafb;
+}
+
+/* FOCUS */
+.main-content form input:focus,
+.main-content form select:focus {
+    outline: none;
+    border-color: var(--admin-blue);
+    box-shadow: 0 0 0 2px rgba(31, 58, 95, 0.15);
+}
+
+/* ================= BOUTON ================= */
 .main-content form button {
     width: 100%;
-    padding: 14px;
-    background: linear-gradient(135deg, #1f6bff, #3b82f6);
+    padding: 13px;
+    background: var(--admin-blue);
     border: none;
-    border-radius: 12px;
+    border-radius: 8px;
     font-size: 15px;
     font-weight: 600;
     color: #ffffff;
     cursor: pointer;
-    transition: all 0.2s ease;
+    transition: background 0.2s ease;
 }
 
 .main-content form button:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 12px 30px rgba(31,107,255,0.35);
+    background: var(--admin-blue-dark);
 }
 
-/* RESPONSIVE */
+/* ================= RESPONSIVE ================= */
 @media (max-width: 900px) {
+    .main-content {
+        padding: 20px;
+    }
+
     .main-content form {
-        max-width: 100%;
+        padding: 20px;
     }
 }
+
 </style>

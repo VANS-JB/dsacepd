@@ -141,12 +141,12 @@
     border-radius: 14px;
     padding: 28px 30px;
     margin-bottom: 30px;
-    border-left: 6px solid #007BFF;
+    border-left: 6px solid linear-gradient(135deg, #1e40af, #1e3a8a);
     box-shadow: 0 8px 20px rgba(0,0,0,0.05);
 }
 
 .privacy-section h2 {
-    color: #007BFF;
+    color: linear-gradient(135deg, #1e40af, #1e3a8a);
     margin-bottom: 12px;
     font-size: 20px;
     font-weight: 600;

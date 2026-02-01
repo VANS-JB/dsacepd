@@ -43,7 +43,7 @@
     /* ================= AUTH PREMIUM ================= */
 body {
     min-height: 100vh;
-    background: linear-gradient(135deg, #1f6bff, #6fa8ff);
+    background: linear-gradient(135deg, #1e40af, #60a5fa);
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -93,7 +93,7 @@ form input {
 
 form input:focus {
     outline: none;
-    border-color: #1f6bff;
+    border-color: linear-gradient(135deg, #1e40af, #1e3a8a);
     background: #ffffff;
     box-shadow: 0 0 0 3px rgba(31,107,255,0.15);
 }
@@ -103,7 +103,7 @@ form button {
     width: 100%;
     margin-top: 10px;
     padding: 13px;
-    background: linear-gradient(135deg, #1f6bff, #3b82f6);
+    background: linear-gradient(135deg, #1e40af, #1e3a8a);
     border: none;
     border-radius: 12px;
     color: #ffffff;

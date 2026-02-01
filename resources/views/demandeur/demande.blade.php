@@ -39,7 +39,7 @@ main h1 {
     text-align: center;
     font-size: 26px;
     font-weight: 700;
-    color: #1f6bff;
+    color: linear-gradient(135deg, #1e40af, #1e3a8a);
     margin-bottom: 30px;
 }
 
@@ -101,7 +101,7 @@ main form button {
     padding: 14px;
     border: none;
     border-radius: 14px;
-    background: linear-gradient(135deg, #1f6bff, #3b82f6);
+    background: linear-gradient(135deg, #1e40af, #1e3a8a);
     color: #ffffff;
     font-size: 15px;
     font-weight: 600;

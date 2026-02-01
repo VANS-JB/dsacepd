@@ -38,11 +38,13 @@
                 <td>{{ $demande->user->name }}</td>
                 <td>{{ $demande->created_at->format('Y-m-d H:i') }}</td>
                 <td>
-                    <a href="{{ route('demandes.edit', $demande->id) }}">✏️ Modifier</a>
-                    <form  action="{{ route('demandes.destroy', $demande->id) }}" method="POST" style="display:inline;">
-                        @csrf @method('DELETE')
-                       <span> <button class="btn btn-danger" type="submit" onclick="return confirm('Supprimer cette demande ?')">🗑 Supprimer</button> </span>
-                    </form>
+                    <div class="actions">
+                        <a href="{{ route('demandes.edit', $demande->id) }}" class="edit">✏️ Modifier</a>
+                        <form action="{{ route('demandes.destroy', $demande->id) }}" method="POST" style="margin:0;">
+                            @csrf @method('DELETE')
+                            <button type="submit" class="delete" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cette demande ?')">🗑 Supprimer</button>
+                        </form>
+                    </div>
                 </td>
             </tr>
             
@@ -59,90 +61,78 @@
 
 <style>
 
-   /* ================= PAGE DEMANDES ================= */
+    :root {
+    --admin-blue: #1f3a5f;      /* Bleu institutionnel */
+    --admin-blue-light: #e6edf5;
+    --admin-border: #e5e7eb;
+    --text-main: #111827;
+    --text-muted: #6b7280;
+}
 
-/* TITRE */
+
+/* ================= PAGE ================= */
 .main-content h1 {
-    font-size: 28px;
-    color: #1f6bff;
-    font-weight: 700;
+    font-size: 22px;
+    font-weight: 600;
+    color: var(--text-main);
     margin-bottom: 20px;
 }
 
-/* BOUTON NOUVELLE DEMANDE */
+/* Bouton nouvelle demande */
 .main-content > a {
-    display: inline-block;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
     margin-bottom: 20px;
-    background: linear-gradient(135deg, #1f6bff, #3b82f6);
+    background: linear-gradient(135deg, #1e40af, #1e3a8a);
     color: #ffffff;
-    padding: 10px 18px;
+    padding: 12px 20px;
     border-radius: 10px;
+    font-size: 14px;
     font-weight: 600;
     text-decoration: none;
-    font-size: 14px;
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    transition: all 0.2s ease;
+    box-shadow: 0 4px 12px rgba(30,64,175,0.2);
 }
 
 .main-content > a:hover {
+    background: linear-gradient(135deg, #1e3a8a, #1e40af);
     transform: translateY(-2px);
-    box-shadow: 0 12px 30px rgba(31,107,255,0.4);
+    box-shadow: 0 8px 20px rgba(30,64,175,0.3);
 }
 
-/* MESSAGE SUCCESS */
-div[style*="color:green"] {
-    background: #d1fae5;
-    color: #065f46;
-    padding: 12px 16px;
-    border-radius: 10px;
-    font-weight: 600;
-    margin-bottom: 20px;
-    max-width: 600px;
-}
-
-/* ================= FORMULAIRE FILTRE ================= */
+/* ================= FILTRE ================= */
 form[action*="demandes"] {
     background: #ffffff;
-    padding: 20px;
-    border-radius: 14px;
-    box-shadow: 0 8px 25px rgba(0,0,0,0.08);
-    margin-bottom: 30px;
+    padding: 16px;
+    border-radius: 8px;
+    border: 1px solid var(--admin-border);
+    margin-bottom: 25px;
+    display: flex;
+    gap: 12px;
     flex-wrap: wrap;
 }
 
 form[action*="demandes"] label {
     font-size: 13px;
-    font-weight: 600;
-    color: #4b5563;
+    color: var(--text-muted);
 }
 
 form[action*="demandes"] input {
-    padding: 10px 14px;
-    border-radius: 8px;
-    border: 1px solid #e5e7eb;
-    background: #f9fafb;
+    padding: 8px 12px;
+    border-radius: 6px;
+    border: 1px solid #d1d5db;
     font-size: 14px;
 }
 
-form[action*="demandes"] input:focus {
-    outline: none;
-    border-color: #1f6bff;
-    box-shadow: 0 0 0 3px rgba(31,107,255,0.15);
-}
-
 form[action*="demandes"] button {
-    background: #1f6bff;
-    color: #ffffff;
+    background: var(--admin-blue);
+    color: white;
     border: none;
-    padding: 10px 18px;
-    border-radius: 8px;
+    padding: 8px 16px;
+    border-radius: 6px;
+    font-size: 14px;
     cursor: pointer;
-    font-weight: 600;
-    transition: background 0.2s ease, transform 0.2s ease;
-}
-
-form[action*="demandes"] button:hover {
-    background: #3b82f6;
-    transform: translateY(-2px);
 }
 
 /* ================= TABLE ================= */
@@ -150,116 +140,177 @@ form[action*="demandes"] button:hover {
     width: 100%;
     border-collapse: collapse;
     background: #ffffff;
-    border-radius: 14px;
+    border-radius: 16px;
     overflow: hidden;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+    border: 1px solid var(--admin-border);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.1);
 }
 
 .main-content thead {
-    background: linear-gradient(135deg, #1f6bff, #3b82f6);
+    background: linear-gradient(135deg, #1e40af, #1e3a8a);
     color: #ffffff;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
 }
 
 .main-content th {
-    padding: 14px 16px;
-    font-size: 14px;
-    font-weight: 600;
+    padding: 18px 20px;
+    font-size: 13px;
+    letter-spacing: 0.3px;
+    font-weight: 700;
     text-align: left;
-}
-
-.main-content td {
-    padding: 13px 16px;
-    font-size: 14px;
-    border-bottom: 1px solid #e5e7eb;
     vertical-align: middle;
 }
 
+.main-content td {
+    padding: 16px 20px;
+    font-size: 14px;
+    color: var(--text-main);
+    border-bottom: 1px solid #f0f1f3;
+    vertical-align: middle;
+    transition: background 0.2s ease;
+}
+
+.main-content tbody tr {
+    transition: all 0.3s ease;
+}
+
 .main-content tbody tr:hover {
-    background: #f3f4f6;
+    background: linear-gradient(90deg, rgba(30,64,175,0.04), rgba(30,58,138,0.04));
+    box-shadow: 0 4px 12px rgba(30,64,175,0.1) inset;
+}
+
+.main-content tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.main-content tbody tr:nth-child(even) {
+    background: #fafbfc;
+}
+
+/* ================= BADGES ================= */
+.badge {
+    display: inline-block;
+    padding: 4px 10px;
+    font-size: 12px;
+    font-weight: 600;
+    border-radius: 999px;
+}
+
+/* Statuts */
+.badge-attente {
+    background: #fef3c7;
+    color: #92400e;
+}
+
+.badge-validee {
+    background: #dcfce7;
+    color: #166534;
+}
+
+.badge-traitement {
+    background: #e0ecff;
+    color: var(--admin-blue);
+}
+
+.badge-rejetee {
+    background: #fee2e2;
+    color: #991b1b;
+}
+
+/* Priorité */
+.badge-normal {
+    background: var(--admin-blue-light);
+    color: var(--admin-blue);
+}
+
+.badge-urgent {
+    background: #fee2e2;
+    color: #b91c1c;
 }
 
 /* ================= ACTIONS ================= */
-.main-content td:last-child {
-    white-space: nowrap;
+.actions {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    flex-wrap: wrap;
 }
 
-/* Bouton Modifier */
-.main-content td a {
-    display: inline-block;
-    background: #e0e7ff;
-    color: #1f6bff;
-    padding: 6px 12px;
-    border-radius: 8px;
-    font-weight: 600;
-    font-size: 13px;
-    text-decoration: none;
-    transition: background 0.2s ease, transform 0.2s ease;
-}
-
-.main-content td a:hover {
-    background: #c7d2fe;
-    transform: translateY(-1px);
-}
-
-/* Bouton Supprimer */
-.main-content td form {
-    display: inline-block;
-    margin-left: 6px;
-}
-
-.main-content td form button {
-    background: #fee2e2;
-    color: #dc2626;
+.actions a,
+.actions button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    padding: 9px 16px;
     border: none;
-    padding: 6px 12px;
-    border-radius: 8px;
+    border-radius: 10px;
+    cursor: pointer;
     font-size: 13px;
     font-weight: 600;
-    cursor: pointer;
-    transition: background 0.2s ease, transform 0.2s ease;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+    min-height: 38px;
 }
 
-.main-content td form button:hover {
-    background: #fecaca;
-    transform: translateY(-1px);
+.actions .edit { 
+    background: linear-gradient(135deg, #dcfce7, #bbf7d0);
+    color: #15803d;
+    border: 1px solid #a7e6c4;
+}
+
+.actions .edit:hover {
+    background: linear-gradient(135deg, #bbf7d0, #86efac);
+    color: #166534;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(21,128,61,0.25);
+}
+
+.actions .delete {
+    background: linear-gradient(135deg, #fee2e2, #fecaca);
+    color: #b91c1c;
+    border: 1px solid #fca5a5;
+}
+
+.actions .delete:hover {
+    background: linear-gradient(135deg, #fecaca, #fca5a5);
+    color: #7f1d1d;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(185,28,28,0.25);
 }
 
 /* ================= PAGINATION ================= */
 .pagination {
     display: flex;
     justify-content: center;
-    margin-top: 25px;
     gap: 6px;
-}
-
-.pagination li {
-    list-style: none;
+    margin-top: 25px;
 }
 
 .pagination a,
 .pagination span {
-    padding: 8px 14px;
-    background: #ffffff;
-    border-radius: 8px;
-    border: 1px solid #e5e7eb;
-    text-decoration: none;
+    padding: 6px 12px;
+    border-radius: 6px;
+    border: 1px solid var(--admin-border);
     font-size: 14px;
-    color: #1f6bff;
-    font-weight: 500;
+    color: var(--admin-blue);
+    text-decoration: none;
 }
 
 .pagination .active span {
-    background: #1f6bff;
-    color: #ffffff;
-    border-color: #1f6bff;
+    background: var(--admin-blue);
+    color: white;
+    border-color: var(--admin-blue);
 }
 
 /* ================= RESPONSIVE ================= */
 @media (max-width: 900px) {
     form[action*="demandes"] {
         flex-direction: column;
-        align-items: stretch;
     }
 }
+
 
 </style>
