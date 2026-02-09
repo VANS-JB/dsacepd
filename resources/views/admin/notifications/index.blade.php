@@ -96,6 +96,7 @@
     text-align: left;
     letter-spacing: 0.3px;
     vertical-align: middle;
+    color: #ffffff
 }
 
 /* CELLULES */
@@ -128,9 +129,9 @@
 /* ================= ACTIONS ================= */
 
 .main-content td:last-child {
-    display: flex;
+    /* display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 8px; */
 }
 
 .main-content td form button {

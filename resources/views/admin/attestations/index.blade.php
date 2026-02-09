@@ -40,7 +40,7 @@
                     {{-- Envoi de notification : passer l'id utilisateur (route notifications.create attend userId) --}}
                     @if(optional(optional($attestation->demande)->user)->id)
                        <a href="{{ route('notifications.create', ['demandeId' => optional($attestation->demande)->id]) }}">
-    📩 Envoyer notification
+    📩 notifier
 </a>
 
                     @else
@@ -125,6 +125,7 @@
     text-align: left;
     letter-spacing: 0.3px;
     vertical-align: middle;
+    color: #ffffff
 }
 
 /* LIGNES */

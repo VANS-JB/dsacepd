@@ -160,6 +160,7 @@ form[action*="demandes"] button {
     font-weight: 700;
     text-align: left;
     vertical-align: middle;
+    color: #ffffff
 }
 
 .main-content td {

@@ -177,6 +177,7 @@ hr {
     font-weight: 700;
     letter-spacing: 0.3px;
     vertical-align: middle;
+    color: #ffffff
 }
 
 .main-content td {
